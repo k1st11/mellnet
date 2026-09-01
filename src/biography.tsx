@@ -1,4 +1,17 @@
+import {
+  Moon,
+  Sun,
+} from 'lucide-react';
 import './biography.css';
+
+type Theme = 'light' | 'dark';
+
+type BiographyProps = {
+  theme: Theme;
+  setTheme: React.Dispatch<
+    React.SetStateAction<Theme>
+  >;
+};
 
 const photos = [
   '/mell-1.jpg',
@@ -11,33 +24,70 @@ const photos = [
 
 function goHome() {
   window.history.pushState({}, '', '/');
-  window.dispatchEvent(new PopStateEvent('popstate'));
+  window.dispatchEvent(
+    new PopStateEvent('popstate')
+  );
+
   window.scrollTo({
     top: 0,
     behavior: 'smooth',
   });
 }
 
-function Biography() {
+function Biography({
+  theme,
+  setTheme,
+}: BiographyProps) {
   return (
-    <main className="biography-page">
+    <main
+      className={`biography-page biography-${theme}`}
+    >
+      <button
+        className="bio-theme-switcher"
+        type="button"
+        aria-label={
+          theme === 'light'
+            ? 'Включить тёмную тему'
+            : 'Включить светлую тему'
+        }
+        onClick={() =>
+          setTheme(
+            theme === 'light'
+              ? 'dark'
+              : 'light'
+          )
+        }
+      >
+        <span className="bio-theme-icon">
+          {theme === 'light' ? (
+            <Moon
+              size={16}
+              strokeWidth={2}
+            />
+          ) : (
+            <Sun
+              size={16}
+              strokeWidth={2}
+            />
+          )}
+        </span>
 
-      {/* =========================================
-          BACKGROUND SYSTEM
-      ========================================= */}
+        <span>
+          {theme === 'light'
+            ? 'DARK'
+            : 'LIGHT'}
+        </span>
+      </button>
 
       <div className="bio-noise" />
       <div className="bio-grid" />
+
       <div className="bio-glow bio-glow-one" />
       <div className="bio-glow bio-glow-two" />
 
-
-      {/* =========================================
-          NAVIGATION
-      ========================================= */}
+      {/* NAVIGATION */}
 
       <nav className="bio-nav">
-
         <button
           className="bio-logo"
           onClick={goHome}
@@ -55,32 +105,22 @@ function Biography() {
         <div className="bio-nav-index">
           BIO / 04
         </div>
-
       </nav>
 
-
-      {/* =========================================
-          HERO
-      ========================================= */}
+      {/* HERO */}
 
       <section className="bio-hero">
-
         <div className="bio-hero-image">
-
           <img
             src={photos[0]}
             alt="Mellstroy"
           />
 
           <div className="bio-image-gradient" />
-
           <div className="bio-image-glass" />
-
         </div>
 
-
         <div className="bio-hero-content">
-
           <div className="bio-kicker">
             MELLNET / DIGITAL ARCHIVE / 004
           </div>
@@ -90,7 +130,6 @@ function Biography() {
           </h1>
 
           <div className="bio-hero-bottom">
-
             <p>
               История человека, который стал
               отдельным явлением русскоязычного
@@ -98,14 +137,13 @@ function Biography() {
             </p>
 
             <div className="bio-scroll">
-              <span>SCROLL TO EXPLORE</span>
+              <span>
+                SCROLL TO EXPLORE
+              </span>
               <i />
             </div>
-
           </div>
-
         </div>
-
 
         <div className="bio-floating-data bio-data-left">
           <span>SUBJECT</span>
@@ -116,49 +154,50 @@ function Biography() {
           <span>ARCHIVE</span>
           <strong>04 / 05</strong>
         </div>
-
       </section>
 
-
-      {/* =========================================
-          INTRO
-      ========================================= */}
+      {/* INTRO */}
 
       <section className="bio-section bio-intro">
-
         <div className="bio-section-label">
           <span>01</span>
           OVERVIEW
         </div>
 
         <div className="bio-intro-grid">
-
           <div className="bio-big-text">
             Не просто
             <br />
-            <span>медиаобраз.</span>
+            <span>
+              медиаобраз.
+            </span>
           </div>
 
           <div className="bio-glass-panel">
-
             <div className="panel-top">
-              <span>FILE / MELLSTROY</span>
+              <span>
+                FILE / MELLSTROY
+              </span>
               <span>OPEN</span>
             </div>
 
             <p>
-              Mellstroy — интернет-псевдоним Андрея Бурима,
-              белорусского блогера и стримера, получившего
-              широкую известность благодаря прямым эфирам,
-              провокационному контенту и яркой интернет-культуре
+              Mellstroy — интернет-псевдоним
+              Андрея Бурима, белорусского
+              блогера и стримера, получившего
+              широкую известность благодаря
+              прямым эфирам, провокационному
+              контенту и яркой интернет-культуре
               вокруг своего имени.
             </p>
 
             <p>
-              Со временем вокруг личности Mellstroy сформировалось
-              отдельное медиапространство: мемы, цитаты,
-              фанатские сообщества, нарезки, визуальные образы
-              и многочисленные отсылки внутри русскоязычного
+              Со временем вокруг личности
+              Mellstroy сформировалось отдельное
+              медиапространство: мемы, цитаты,
+              фанатские сообщества, нарезки,
+              визуальные образы и многочисленные
+              отсылки внутри русскоязычного
               интернета.
             </p>
 
@@ -167,40 +206,38 @@ function Biography() {
             <div className="panel-meta">
               <div>
                 <span>TYPE</span>
-                <strong>INTERNET CULTURE</strong>
+                <strong>
+                  INTERNET CULTURE
+                </strong>
               </div>
 
               <div>
                 <span>FORMAT</span>
-                <strong>STREAM / MEDIA</strong>
+                <strong>
+                  STREAM / MEDIA
+                </strong>
               </div>
 
               <div>
                 <span>ARCHIVE</span>
-                <strong>MELLNET</strong>
+                <strong>
+                  MELLNET
+                </strong>
               </div>
             </div>
-
           </div>
-
         </div>
-
       </section>
 
-
-      {/* =========================================
-          PHOTO WALL
-      ========================================= */}
+      {/* PHOTO WALL */}
 
       <section className="bio-section bio-gallery-section">
-
         <div className="bio-section-label">
           <span>02</span>
           VISUAL ARCHIVE
         </div>
 
         <div className="bio-gallery">
-
           <div className="bio-photo photo-main">
             <img
               src={photos[1]}
@@ -213,7 +250,6 @@ function Biography() {
             </div>
           </div>
 
-
           <div className="bio-photo photo-small">
             <img
               src={photos[2]}
@@ -224,7 +260,6 @@ function Biography() {
               <span>ARCHIVE 02</span>
             </div>
           </div>
-
 
           <div className="bio-photo photo-small">
             <img
@@ -237,7 +272,6 @@ function Biography() {
             </div>
           </div>
 
-
           <div className="bio-photo photo-wide">
             <img
               src={photos[4]}
@@ -246,32 +280,29 @@ function Biography() {
 
             <div className="photo-overlay">
               <span>ARCHIVE 04</span>
-              <strong>DIGITAL CULTURE</strong>
+              <strong>
+                DIGITAL CULTURE
+              </strong>
             </div>
           </div>
-
         </div>
-
       </section>
 
-
-      {/* =========================================
-          STORY
-      ========================================= */}
+      {/* STORY */}
 
       <section className="bio-section bio-story">
-
         <div className="bio-section-label">
           <span>03</span>
           THE STORY
         </div>
 
         <div className="bio-story-heading">
-
           <h2>
             От стримов
             <br />
-            <span>к феномену.</span>
+            <span>
+              к феномену.
+            </span>
           </h2>
 
           <div className="story-description">
@@ -279,109 +310,83 @@ function Biography() {
             чем успевают сохраняться его
             главные моменты.
           </div>
-
         </div>
 
-
         <div className="story-cards">
-
           <article className="story-card">
-
             <div className="story-number">
               01
             </div>
 
             <div className="story-card-content">
-
-              <span>
-                НАЧАЛО
-              </span>
+              <span>НАЧАЛО</span>
 
               <h3>
                 Первые трансляции
               </h3>
 
               <p>
-                Путь к большой аудитории начинался с
-                прямых трансляций и постепенного формирования
-                собственного узнаваемого формата.
+                Путь к большой аудитории
+                начинался с прямых трансляций
+                и постепенного формирования
+                собственного узнаваемого
+                формата.
               </p>
-
             </div>
-
           </article>
 
-
           <article className="story-card story-card-featured">
-
             <div className="story-number">
               02
             </div>
 
             <div className="story-card-content">
-
-              <span>
-                РОСТ
-              </span>
+              <span>РОСТ</span>
 
               <h3>
                 Большая аудитория
               </h3>
 
               <p>
-                Стримы, клипы и обсуждения начали выходить
-                далеко за пределы первоначальной аудитории.
-                Имя Mellstroy стало узнаваемым мемом само по себе.
+                Стримы, клипы и обсуждения
+                начали выходить далеко за
+                пределы первоначальной
+                аудитории.
               </p>
-
             </div>
-
           </article>
 
-
           <article className="story-card">
-
             <div className="story-number">
               03
             </div>
 
             <div className="story-card-content">
-
-              <span>
-                КУЛЬТУРА
-              </span>
+              <span>КУЛЬТУРА</span>
 
               <h3>
                 Отдельный интернет-мир
               </h3>
 
               <p>
-                Вокруг образа появились мемы, цитаты,
-                фанатские проекты, сообщества и целый пласт
+                Вокруг образа появились мемы,
+                цитаты, фанатские проекты,
+                сообщества и целый пласт
                 интернет-культуры.
               </p>
-
             </div>
-
           </article>
-
         </div>
-
       </section>
 
-
-      {/* =========================================
-          QUOTE
-      ========================================= */}
+      {/* QUOTE */}
 
       <section className="bio-quote-section">
-
         <div className="quote-decoration">
           MELL
         </div>
 
         <div className="quote-glass">
-
           <div className="quote-label">
             MELLNET / ARCHIVE QUOTE
           </div>
@@ -391,40 +396,32 @@ function Biography() {
           </div>
 
           <blockquote>
-            Интернет запоминает не только события.
-            Он запоминает мемы, фразы и моменты,
-            которые становятся частью общей культуры.
+            Интернет запоминает не только
+            события. Он запоминает мемы,
+            фразы и моменты, которые становятся
+            частью общей культуры.
           </blockquote>
 
           <div className="quote-footer">
             <span>MELLNET ARCHIVE</span>
             <span>2026</span>
           </div>
-
         </div>
-
       </section>
 
-
-      {/* =========================================
-          FINAL PHOTO
-      ========================================= */}
+      {/* FINAL */}
 
       <section className="bio-final">
-
         <div className="bio-final-image">
-
           <img
             src={photos[5]}
             alt="Mellstroy"
           />
 
           <div className="bio-final-overlay" />
-
         </div>
 
         <div className="bio-final-content">
-
           <div className="bio-kicker">
             END OF FILE / 004
           </div>
@@ -436,9 +433,10 @@ function Biography() {
           </h2>
 
           <p>
-            MellNet собирает материалы, которые
-            помогают сохранить отдельные страницы
-            этой интернет-эпохи.
+            MellNet собирает материалы,
+            которые помогают сохранить
+            отдельные страницы этой
+            интернет-эпохи.
           </p>
 
           <button
@@ -446,35 +444,26 @@ function Biography() {
             onClick={goHome}
             type="button"
           >
-            <span>Вернуться в MellNet</span>
+            <span>
+              Вернуться в MellNet
+            </span>
+
             <strong>→</strong>
           </button>
-
         </div>
-
       </section>
 
-
-      {/* =========================================
-          FOOTER
-      ========================================= */}
+      {/* FOOTER */}
 
       <footer className="bio-footer">
-
-        <div>
-          MELLNET
-        </div>
+        <div>MELLNET</div>
 
         <span>
           DIGITAL ARCHIVE / BIOGRAPHY
         </span>
 
-        <span>
-          2026
-        </span>
-
+        <span>2026</span>
       </footer>
-
     </main>
   );
 }
