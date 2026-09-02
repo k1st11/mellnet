@@ -352,6 +352,18 @@ export default function Radio() {
       />
 
       <header className="radio-header">
+       <button
+  className="radio-back-button"
+  onClick={() => {
+    window.history.pushState({}, '', '/');
+
+    window.dispatchEvent(
+      new PopStateEvent('popstate')
+    );
+  }}
+>
+  ← MELLNET
+</button>
         <div className="radio-brand">
           <span className="radio-brand-small">MELLNET</span>
           <strong>MеллFM</strong>

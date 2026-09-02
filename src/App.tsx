@@ -8,6 +8,7 @@ import {
 import './App.css';
 import Biography from './biography';
 import Seasons from './seasons';
+import Radio from './radio';
 
 export type Theme = 'light' | 'dark' | 'retro';
 
@@ -52,7 +53,7 @@ const services: ServiceCard[] = [
       'Мэшапы, треки и собственное радио с красивым плеером.',
     icon: '♫',
     path: '/radio',
-    available: false,
+    available: true,
   },
   {
     id: 'biography',
@@ -211,6 +212,10 @@ function App() {
       />
     );
   }
+
+  if (currentPath === '/radio') {
+  return <Radio />;
+}
 
   const nextTheme = getNextTheme(theme);
 
