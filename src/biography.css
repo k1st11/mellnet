@@ -1,2938 +1,1913 @@
 /* =========================================================
-   MELLNET — SEASONS
+   MELLNET — BIOGRAPHY
    LIGHT / DARK / RETRO
-   Compatible with the new seasons.tsx
+   Frutiger Aero + Liquid Glass
    ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
 
 /* =========================================================
    BASE
    ========================================================= */
 
-.seasons-page {
-  --bg: #edf8fb;
-  --bg-secondary: #dff2f6;
+.biography-page {
+  --bg: #eaf8fb;
+  --bg-secondary: #d9f1f5;
 
-  --text: #102d36;
-  --muted: #53717a;
-  --soft: #6e919b;
+  --text: #102a32;
+  --muted: #55747d;
+  --soft: #76949b;
 
-  --accent: #35bdd2;
-  --accent-strong: #159bb5;
+  --accent: #29b9d0;
+  --accent-strong: #079bb7;
+  --accent-soft: rgba(41, 185, 208, 0.14);
 
-  --border: rgba(40, 135, 155, 0.20);
+  --glass: rgba(255, 255, 255, 0.55);
+  --glass-strong: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(255, 255, 255, 0.8);
 
-  --glass: rgba(255, 255, 255, 0.52);
-  --glass-strong: rgba(255, 255, 255, 0.70);
+  --border: rgba(16, 42, 50, 0.1);
 
-  --shadow: rgba(28, 105, 125, 0.12);
+  --shadow:
+    0 24px 70px rgba(24, 120, 140, 0.12);
 
-  position: relative;
+  --shadow-soft:
+    0 12px 35px rgba(24, 120, 140, 0.09);
 
   min-height: 100vh;
-
-  overflow-x: hidden;
+  position: relative;
+  overflow: hidden;
 
   background:
+    radial-gradient(
+      circle at 15% 15%,
+      rgba(255, 255, 255, 0.95),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 90% 10%,
+      rgba(86, 210, 228, 0.22),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 70% 75%,
+      rgba(117, 225, 198, 0.16),
+      transparent 30%
+    ),
     linear-gradient(
-      180deg,
-      var(--bg) 0%,
-      var(--bg-secondary) 100%
+      145deg,
+      #f5fdff 0%,
+      var(--bg) 45%,
+      #dff4f6 100%
     );
 
   color: var(--text);
 
   font-family:
-    "Tilda Sans",
-    "Inter",
-    Arial,
+    'Inter',
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
     sans-serif;
 
   transition:
-    background .35s ease,
-    color .35s ease;
+    background 0.35s ease,
+    color 0.35s ease;
 }
 
-.seasons-page *,
-.seasons-page *::before,
-.seasons-page *::after {
-  box-sizing: border-box;
-}
-
-.seasons-page button {
-  font: inherit;
-}
 
 /* =========================================================
-   BACKGROUND
+   DARK
    ========================================================= */
 
-.seasons-background-grid {
+.biography-dark {
+  --bg: #090f13;
+  --bg-secondary: #101a1f;
+
+  --text: #e8fbff;
+  --muted: #9bb8bf;
+  --soft: #6e8b92;
+
+  --accent: #39cce2;
+  --accent-strong: #6be0ef;
+  --accent-soft: rgba(57, 204, 226, 0.14);
+
+  --glass: rgba(20, 30, 35, 0.58);
+  --glass-strong: rgba(25, 38, 44, 0.76);
+  --glass-border: rgba(150, 220, 230, 0.12);
+
+  --border: rgba(190, 235, 242, 0.1);
+
+  --shadow:
+    0 30px 90px rgba(0, 0, 0, 0.42);
+
+  --shadow-soft:
+    0 16px 45px rgba(0, 0, 0, 0.3);
+
+  background:
+    radial-gradient(
+      circle at 15% 15%,
+      rgba(38, 133, 151, 0.18),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 90% 10%,
+      rgba(29, 106, 121, 0.16),
+      transparent 30%
+    ),
+    linear-gradient(
+      145deg,
+      #0d171c 0%,
+      #091115 55%,
+      #070b0e 100%
+    );
+}
+
+
+/* =========================================================
+   RETRO
+   ========================================================= */
+
+.biography-retro {
+  --bg: #c7d9e0;
+  --bg-secondary: #b7cbd3;
+
+  --text: #07131a;
+  --muted: #344b54;
+  --soft: #51666d;
+
+  --accent: #0054a6;
+  --accent-strong: #003c7d;
+  --accent-soft: rgba(0, 84, 166, 0.12);
+
+  --glass: #d8e5e9;
+  --glass-strong: #edf4f6;
+  --glass-border: #ffffff;
+
+  --border: #71838b;
+
+  --shadow:
+    5px 5px 0 rgba(0, 0, 0, 0.28);
+
+  --shadow-soft:
+    3px 3px 0 rgba(0, 0, 0, 0.2);
+
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.08) 0,
+      rgba(255, 255, 255, 0.08) 1px,
+      transparent 1px,
+      transparent 3px
+    ),
+    #c7d9e0;
+
+  font-family:
+    'Inter',
+    Arial,
+    Helvetica,
+    sans-serif;
+}
+
+
+/* =========================================================
+   DECORATIVE BACKGROUND
+   ========================================================= */
+
+.bio-noise {
   position: fixed;
-
   inset: 0;
-
-  z-index: 0;
 
   pointer-events: none;
 
-  opacity: .35;
+  opacity: 0.045;
+
+  background-image:
+    radial-gradient(
+      rgba(0, 0, 0, 0.8) 0.6px,
+      transparent 0.6px
+    );
+
+  background-size: 5px 5px;
+
+  z-index: 0;
+}
+
+.biography-dark .bio-noise {
+  opacity: 0.07;
+}
+
+.biography-retro .bio-noise {
+  display: none;
+}
+
+
+.bio-grid {
+  position: fixed;
+  inset: 0;
+
+  pointer-events: none;
+
+  opacity: 0.22;
 
   background-image:
     linear-gradient(
-      rgba(44, 154, 175, .055) 1px,
+      rgba(30, 130, 150, 0.07) 1px,
       transparent 1px
     ),
     linear-gradient(
       90deg,
-      rgba(44, 154, 175, .055) 1px,
+      rgba(30, 130, 150, 0.07) 1px,
       transparent 1px
     );
 
-  background-size:
-    55px
-    55px;
-}
+  background-size: 70px 70px;
 
-.seasons-glow {
-  position: fixed;
+  mask-image:
+    linear-gradient(
+      to bottom,
+      black,
+      transparent 75%
+    );
 
   z-index: 0;
+}
 
-  width: 500px;
-  height: 500px;
+.biography-dark .bio-grid {
+  opacity: 0.1;
+}
+
+.biography-retro .bio-grid {
+  opacity: 0.08;
+
+  background-size: 32px 32px;
+
+  background-image:
+    linear-gradient(
+      rgba(0, 0, 0, 0.08) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.08) 1px,
+      transparent 1px
+    );
+}
+
+
+.bio-glow {
+  position: fixed;
+
+  width: 420px;
+  height: 420px;
 
   border-radius: 50%;
 
+  filter: blur(80px);
+
   pointer-events: none;
 
-  filter: blur(40px);
-
-  opacity: .45;
+  z-index: 0;
 }
 
-.seasons-glow-one {
-  top: 80px;
-  left: -180px;
+.bio-glow-one {
+  top: 8%;
+  left: -150px;
 
-  background:
-    rgba(62, 210, 232, .22);
+  background: rgba(52, 204, 222, 0.16);
 }
 
-.seasons-glow-two {
-  top: 900px;
-  right: -220px;
+.bio-glow-two {
+  right: -160px;
+  top: 55%;
 
-  background:
-    rgba(86, 205, 168, .20);
+  background: rgba(69, 201, 176, 0.12);
 }
 
-/* =========================================================
-   LIGHT THEME
-   ========================================================= */
-
-.seasons-light {
-  --bg: #edf9fc;
-  --bg-secondary: #dff4f5;
-
-  --text: #102d36;
-  --muted: #55737b;
-  --soft: #71929b;
-
-  --accent: #36bfd4;
-  --accent-strong: #159cb5;
-
-  --border: rgba(40, 135, 155, .19);
-
-  --glass: rgba(255, 255, 255, .48);
-  --glass-strong: rgba(255, 255, 255, .68);
-
-  --shadow: rgba(28, 105, 125, .12);
+.biography-dark .bio-glow-one {
+  background: rgba(44, 186, 208, 0.12);
 }
 
-/* =========================================================
-   DARK THEME
-   ========================================================= */
-
-.seasons-dark {
-  --bg: #0b1418;
-  --bg-secondary: #101e23;
-
-  --text: #e5f5f7;
-  --muted: #91adb4;
-  --soft: #72929b;
-
-  --accent: #40c5d8;
-  --accent-strong: #26aabd;
-
-  --border: rgba(150, 225, 235, .14);
-
-  --glass: rgba(255, 255, 255, .055);
-  --glass-strong: rgba(255, 255, 255, .085);
-
-  --shadow: rgba(0, 0, 0, .30);
+.biography-dark .bio-glow-two {
+  background: rgba(33, 123, 139, 0.08);
 }
 
-.seasons-dark .seasons-background-grid {
-  opacity: .20;
-
-  background-image:
-    linear-gradient(
-      rgba(100, 200, 215, .055) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      90deg,
-      rgba(100, 200, 215, .055) 1px,
-      transparent 1px
-    );
+.biography-retro .bio-glow {
+  display: none;
 }
 
-.seasons-dark .seasons-glow {
-  opacity: .18;
-}
 
 /* =========================================================
    THEME SWITCHER
    ========================================================= */
 
-.seasons-theme-switcher {
+.bio-theme-switcher {
   position: fixed;
 
-  top: 18px;
-  right: 20px;
+  top: 22px;
+  right: 24px;
 
   z-index: 100;
 
   display: flex;
   align-items: center;
-
   gap: 9px;
 
   min-height: 38px;
+  padding: 0 13px;
 
-  padding:
-    4px
-    10px
-    4px
-    5px;
-
-  border:
-    1px solid
-    var(--border);
-
+  border: 1px solid var(--glass-border);
   border-radius: 999px;
 
-  background:
-    var(--glass-strong);
+  background: var(--glass);
 
-  color:
-    var(--text);
+  color: var(--text);
 
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.75),
-    0 10px 35px var(--shadow);
+    0 10px 30px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
 
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
 
-  font-size: 8px;
-  font-weight: 700;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 800;
 
-  letter-spacing: .12em;
+  letter-spacing: 0.12em;
 
   cursor: pointer;
 
   transition:
-    transform .2s ease,
-    background .25s ease,
-    box-shadow .25s ease;
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.seasons-theme-switcher:hover {
+.bio-theme-switcher:hover {
   transform: translateY(-2px);
 
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.75),
-    0 14px 40px var(--shadow);
+    0 14px 35px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
-.seasons-theme-switcher:active {
+.bio-theme-switcher:active {
   transform: translateY(0);
 }
 
-.seasons-theme-icon {
-  width: 27px;
-  height: 27px;
+.bio-theme-icon {
+  width: 17px;
+  height: 17px;
+
+  display: grid;
+  place-items: center;
+}
+
+.biography-dark .bio-theme-switcher {
+  box-shadow:
+    0 12px 35px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.biography-retro .bio-theme-switcher {
+  border: 1px solid #17252c;
+  border-radius: 2px;
+
+  background: #e9f0f2;
+
+  box-shadow:
+    inset 1px 1px 0 #ffffff,
+    inset -1px -1px 0 #718087,
+    2px 2px 0 rgba(0, 0, 0, 0.25);
+
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  letter-spacing: 0;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.biography-retro .bio-theme-switcher:hover {
+  transform: none;
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+.bio-nav {
+  position: relative;
+  z-index: 10;
+
+  width: min(1400px, calc(100% - 64px));
+
+  margin: 0 auto;
+
+  padding: 28px 0 20px;
+
+  display: grid;
+
+  grid-template-columns: 1fr auto 1fr;
+
+  align-items: center;
+
+  border-bottom: 1px solid var(--border);
+}
+
+.bio-logo {
+  justify-self: start;
 
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: baseline;
+  gap: 4px;
 
-  border:
-    1px solid
-    var(--border);
+  padding: 0;
+
+  border: 0;
+  background: transparent;
+
+  color: var(--text);
+
+  font-family:
+    'Space Grotesk',
+    'Inter',
+    sans-serif;
+
+  font-size: 20px;
+  font-weight: 800;
+
+  letter-spacing: -0.07em;
+
+  cursor: pointer;
+}
+
+.bio-logo strong {
+  color: var(--accent-strong);
+}
+
+.bio-nav-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  color: var(--muted);
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 0.16em;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
 
   border-radius: 50%;
 
-  background:
-    rgba(255,255,255,.34);
+  background: var(--accent);
 
-  color:
-    var(--accent-strong);
+  box-shadow:
+    0 0 0 4px var(--accent-soft),
+    0 0 14px rgba(41, 185, 208, 0.4);
 }
 
+.bio-nav-index {
+  justify-self: end;
+
+  color: var(--soft);
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 0.16em;
+}
+
+
+/* RETRO NAV */
+
+.biography-retro .bio-nav {
+  width: calc(100% - 20px);
+
+  padding: 9px 10px;
+
+  border-bottom: 2px solid #5b6d75;
+
+  background: #dce8ec;
+
+  box-shadow:
+    inset 0 1px 0 #ffffff,
+    inset 0 -1px 0 #9aaab0;
+}
+
+.biography-retro .bio-logo {
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 18px;
+
+  letter-spacing: 0;
+}
+
+.biography-retro .bio-nav-status,
+.biography-retro .bio-nav-index {
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 11px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.biography-retro .status-dot {
+  width: 8px;
+  height: 8px;
+
+  border-radius: 0;
+
+  background: #008000;
+
+  box-shadow: none;
+}
+
+
 /* =========================================================
-   NAV
+   HERO
    ========================================================= */
 
-.seasons-nav {
+.bio-hero {
+  position: relative;
+  z-index: 2;
+
+  width: min(1400px, calc(100% - 64px));
+
+  min-height: 720px;
+
+  margin: 40px auto 0;
+
+  display: grid;
+
+  grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.95fr);
+
+  overflow: hidden;
+
+  border-radius: 34px;
+
+  border: 1px solid var(--glass-border);
+
+  background: var(--glass);
+
+  box-shadow: var(--shadow);
+
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+.bio-hero-image {
   position: relative;
 
-  z-index: 10;
+  min-height: 720px;
 
+  overflow: hidden;
+
+  background: #b8dce3;
+}
+
+.bio-hero-image img {
   width: 100%;
+  height: 100%;
 
-  min-height: 68px;
+  display: block;
 
-  padding:
-    0
-    32px;
+  object-fit: cover;
+
+  object-position: center;
+
+  transition:
+    transform 0.7s ease,
+    filter 0.5s ease;
+}
+
+.bio-hero:hover .bio-hero-image img {
+  transform: scale(1.025);
+}
+
+.bio-image-gradient {
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent 50%,
+      rgba(7, 28, 35, 0.28)
+    ),
+    linear-gradient(
+      0deg,
+      rgba(5, 25, 31, 0.4),
+      transparent 35%
+    );
+}
+
+.bio-image-glass {
+  position: absolute;
+
+  left: 28px;
+  right: 28px;
+  bottom: 28px;
+
+  height: 80px;
+
+  border: 1px solid rgba(255, 255, 255, 0.3);
+
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.25),
+      rgba(255, 255, 255, 0.06)
+    );
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.bio-hero-content {
+  position: relative;
+
+  padding: 74px 70px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.52),
+      rgba(255, 255, 255, 0.2)
+    );
+}
+
+.bio-kicker {
+  color: var(--accent-strong);
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 0.18em;
+  line-height: 1.6;
+}
+
+.bio-hero h1 {
+  margin: auto 0 32px;
+
+  font-family:
+    'Space Grotesk',
+    'Inter',
+    sans-serif;
+
+  font-size: clamp(58px, 8vw, 128px);
+
+  line-height: 0.86;
+
+  letter-spacing: -0.075em;
+
+  font-weight: 800;
+
+  color: var(--text);
+}
+
+.bio-hero-bottom {
+  display: flex;
+
+  align-items: end;
+
+  justify-content: space-between;
+
+  gap: 40px;
+}
+
+.bio-hero-bottom p {
+  max-width: 330px;
+
+  margin: 0;
+
+  color: var(--muted);
+
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.bio-scroll {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+
+  color: var(--soft);
+
+  font-size: 9px;
+  font-weight: 800;
+
+  letter-spacing: 0.14em;
+
+  white-space: nowrap;
+}
+
+.bio-scroll i {
+  width: 42px;
+  height: 1px;
+
+  display: block;
+
+  background: var(--accent);
+}
+
+.bio-floating-data {
+  position: absolute;
+
+  bottom: 48px;
+
+  z-index: 5;
+
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+
+  padding: 10px 13px;
+
+  border: 1px solid rgba(255, 255, 255, 0.28);
+
+  border-radius: 12px;
+
+  background: rgba(8, 24, 29, 0.28);
+
+  color: white;
+
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+}
+
+.bio-data-left {
+  left: 28px;
+}
+
+.bio-data-right {
+  right: 28px;
+}
+
+.bio-floating-data span {
+  font-size: 8px;
+  font-weight: 700;
+
+  letter-spacing: 0.15em;
+
+  opacity: 0.65;
+}
+
+.bio-floating-data strong {
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 0.08em;
+}
+
+
+/* =========================================================
+   GENERAL SECTIONS
+   ========================================================= */
+
+.bio-section {
+  position: relative;
+  z-index: 2;
+
+  width: min(1400px, calc(100% - 64px));
+
+  margin: 150px auto 0;
+}
+
+.bio-section-label {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  margin-bottom: 45px;
+
+  color: var(--soft);
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 0.16em;
+}
+
+.bio-section-label span {
+  color: var(--accent-strong);
+}
+
+
+/* =========================================================
+   INTRO
+   ========================================================= */
+
+.bio-intro-grid {
+  display: grid;
+
+  grid-template-columns: 0.8fr 1.2fr;
+
+  gap: 70px;
+
+  align-items: start;
+}
+
+.bio-big-text {
+  font-family:
+    'Space Grotesk',
+    'Inter',
+    sans-serif;
+
+  font-size: clamp(48px, 6vw, 88px);
+
+  font-weight: 700;
+
+  line-height: 0.93;
+
+  letter-spacing: -0.065em;
+}
+
+.bio-big-text span {
+  color: var(--accent-strong);
+}
+
+.bio-glass-panel {
+  padding: 34px;
+
+  border: 1px solid var(--glass-border);
+
+  border-radius: 25px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.6),
+      rgba(255, 255, 255, 0.25)
+    );
+
+  box-shadow: var(--shadow-soft);
+
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+}
+
+.panel-top {
+  display: flex;
+  justify-content: space-between;
+
+  margin-bottom: 28px;
+
+  color: var(--soft);
+
+  font-size: 9px;
+  font-weight: 800;
+
+  letter-spacing: 0.15em;
+}
+
+.bio-glass-panel p {
+  margin: 0 0 20px;
+
+  color: var(--muted);
+
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+.panel-line {
+  height: 1px;
+
+  margin: 28px 0;
+
+  background: var(--border);
+}
+
+.panel-meta {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 20px;
+}
+
+.panel-meta div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.panel-meta span {
+  color: var(--soft);
+
+  font-size: 8px;
+  font-weight: 800;
+
+  letter-spacing: 0.14em;
+}
+
+.panel-meta strong {
+  color: var(--text);
+
+  font-size: 10px;
+  font-weight: 800;
+}
+
+
+/* =========================================================
+   GALLERY
+   ========================================================= */
+
+.bio-gallery {
+  display: grid;
+
+  grid-template-columns:
+    1.25fr
+    0.75fr
+    0.75fr;
+
+  grid-template-rows:
+    290px
+    290px;
+
+  gap: 16px;
+}
+
+.bio-photo {
+  position: relative;
+
+  overflow: hidden;
+
+  border-radius: 24px;
+
+  border: 1px solid var(--glass-border);
+
+  background: var(--bg-secondary);
+
+  box-shadow: var(--shadow-soft);
+}
+
+.bio-photo img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  transition:
+    transform 0.6s ease,
+    filter 0.4s ease;
+}
+
+.bio-photo:hover img {
+  transform: scale(1.04);
+}
+
+.photo-main {
+  grid-row: span 2;
+}
+
+.photo-wide {
+  grid-column: 2 / 4;
+}
+
+.photo-overlay {
+  position: absolute;
+
+  inset: auto 14px 14px 14px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+
+  gap: 20px;
+
+  padding: 13px 15px;
+
+  border: 1px solid rgba(255, 255, 255, 0.28);
+
+  border-radius: 14px;
+
+  background: rgba(5, 20, 25, 0.3);
+
+  color: white;
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.photo-overlay span {
+  font-size: 8px;
+  font-weight: 800;
+
+  letter-spacing: 0.12em;
+
+  opacity: 0.72;
+}
+
+.photo-overlay strong {
+  font-size: 9px;
+
+  letter-spacing: 0.08em;
+}
+
+
+/* =========================================================
+   STORY
+   ========================================================= */
+
+.bio-story-heading {
+  display: grid;
+
+  grid-template-columns: 1fr 0.55fr;
+
+  gap: 60px;
+
+  align-items: end;
+
+  margin-bottom: 55px;
+}
+
+.bio-story-heading h2 {
+  margin: 0;
+
+  font-family:
+    'Space Grotesk',
+    'Inter',
+    sans-serif;
+
+  font-size: clamp(55px, 7vw, 105px);
+
+  line-height: 0.9;
+
+  letter-spacing: -0.07em;
+}
+
+.bio-story-heading h2 span {
+  color: var(--accent-strong);
+}
+
+.story-description {
+  max-width: 300px;
+
+  color: var(--muted);
+
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.story-cards {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 16px;
+}
+
+.story-card {
+  min-height: 330px;
+
+  padding: 26px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  border: 1px solid var(--glass-border);
+
+  border-radius: 24px;
+
+  background: var(--glass);
+
+  box-shadow: var(--shadow-soft);
+
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.story-card:hover {
+  transform: translateY(-6px);
+
+  box-shadow: var(--shadow);
+}
+
+.story-card-featured {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(42, 191, 211, 0.18),
+      rgba(255, 255, 255, 0.4)
+    );
+}
+
+.story-number {
+  color: var(--accent-strong);
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 0.14em;
+}
+
+.story-card-content span {
+  color: var(--soft);
+
+  font-size: 9px;
+  font-weight: 800;
+
+  letter-spacing: 0.14em;
+}
+
+.story-card-content h3 {
+  margin: 13px 0 14px;
+
+  font-family:
+    'Space Grotesk',
+    'Inter',
+    sans-serif;
+
+  font-size: 26px;
+
+  letter-spacing: -0.04em;
+}
+
+.story-card-content p {
+  margin: 0;
+
+  color: var(--muted);
+
+  font-size: 13px;
+
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   QUOTE
+   ========================================================= */
+
+.bio-quote-section {
+  position: relative;
+  z-index: 2;
+
+  width: min(1400px, calc(100% - 64px));
+
+  margin: 180px auto;
+
+  display: flex;
+  justify-content: center;
+
+  overflow: hidden;
+}
+
+.quote-decoration {
+  position: absolute;
+
+  left: -20px;
+  top: -50px;
+
+  font-family:
+    'Space Grotesk',
+    sans-serif;
+
+  font-size: clamp(120px, 20vw, 300px);
+
+  font-weight: 900;
+
+  letter-spacing: -0.1em;
+
+  color: rgba(40, 187, 209, 0.06);
+
+  user-select: none;
+}
+
+.quote-glass {
+  position: relative;
+
+  width: min(850px, 100%);
+
+  padding: 65px;
+
+  border: 1px solid var(--glass-border);
+
+  border-radius: 30px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.65),
+      rgba(255, 255, 255, 0.22)
+    );
+
+  box-shadow: var(--shadow);
+
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+}
+
+.quote-label {
+  color: var(--soft);
+
+  font-size: 9px;
+  font-weight: 800;
+
+  letter-spacing: 0.16em;
+}
+
+.quote-mark {
+  margin-top: 30px;
+
+  color: var(--accent-strong);
+
+  font-family:
+    'Space Grotesk',
+    sans-serif;
+
+  font-size: 80px;
+
+  line-height: 0.6;
+}
+
+.quote-glass blockquote {
+  margin: 35px 0 55px;
+
+  color: var(--text);
+
+  font-family:
+    'Space Grotesk',
+    'Inter',
+    sans-serif;
+
+  font-size: clamp(28px, 4vw, 50px);
+
+  font-weight: 600;
+
+  line-height: 1.1;
+
+  letter-spacing: -0.045em;
+}
+
+.quote-footer {
+  display: flex;
+  justify-content: space-between;
+
+  padding-top: 18px;
+
+  border-top: 1px solid var(--border);
+
+  color: var(--soft);
+
+  font-size: 9px;
+  font-weight: 800;
+
+  letter-spacing: 0.13em;
+}
+
+
+/* =========================================================
+   FINAL
+   ========================================================= */
+
+.bio-final {
+  position: relative;
+  z-index: 2;
+
+  width: min(1400px, calc(100% - 64px));
+
+  min-height: 600px;
+
+  margin: 0 auto 120px;
+
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    0.85fr;
+
+  overflow: hidden;
+
+  border-radius: 32px;
+
+  border: 1px solid var(--glass-border);
+
+  background: var(--glass);
+
+  box-shadow: var(--shadow);
+
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.bio-final-image {
+  position: relative;
+
+  min-height: 600px;
+
+  overflow: hidden;
+}
+
+.bio-final-image img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+}
+
+.bio-final-overlay {
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent 50%,
+      rgba(4, 22, 27, 0.42)
+    );
+}
+
+.bio-final-content {
+  padding: 70px;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+}
+
+.bio-final-content h2 {
+  margin: 30px 0;
+
+  font-family:
+    'Space Grotesk',
+    'Inter',
+    sans-serif;
+
+  font-size: clamp(48px, 5vw, 80px);
+
+  line-height: 0.92;
+
+  letter-spacing: -0.07em;
+}
+
+.bio-final-content p {
+  max-width: 400px;
+
+  margin: 0 0 40px;
+
+  color: var(--muted);
+
+  font-size: 14px;
+
+  line-height: 1.7;
+}
+
+.bio-back-button {
+  width: fit-content;
+
+  display: flex;
+  align-items: center;
+  gap: 28px;
+
+  padding: 13px 16px;
+
+  border: 1px solid var(--glass-border);
+
+  border-radius: 14px;
+
+  background: var(--glass);
+
+  color: var(--text);
+
+  font-family: inherit;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  box-shadow: var(--shadow-soft);
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.bio-back-button:hover {
+  transform: translateX(4px);
+
+  background: var(--glass-strong);
+}
+
+.bio-back-button strong {
+  color: var(--accent-strong);
+
+  font-size: 18px;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.bio-footer {
+  position: relative;
+  z-index: 2;
+
+  width: min(1400px, calc(100% - 64px));
+
+  margin: 0 auto;
+
+  padding: 30px 0 45px;
 
   display: grid;
 
   grid-template-columns:
     1fr
     auto
-    1fr;
-
-  align-items: center;
-
-  border-bottom:
-    1px solid
-    var(--border);
-
-  background:
-    rgba(255,255,255,.22);
-
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-}
-
-.seasons-dark .seasons-nav {
-  background:
-    rgba(5, 15, 18, .42);
-}
-
-.seasons-back {
-  width: fit-content;
-
-  display: flex;
-  align-items: center;
-
-  gap: 9px;
-
-  padding: 8px 11px;
-
-  border:
-    1px solid
-    var(--border);
-
-  border-radius: 999px;
-
-  background:
-    var(--glass);
-
-  color:
-    var(--text);
-
-  font-size: 8px;
-  font-weight: 700;
-
-  letter-spacing: .15em;
-
-  cursor: pointer;
-
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.6);
-
-  transition:
-    background .2s ease,
-    transform .2s ease;
-}
-
-.seasons-back:hover {
-  transform: translateX(-2px);
-
-  background:
-    var(--glass-strong);
-}
-
-.seasons-nav-center {
-  color:
-    var(--soft);
-
-  font-size: 7px;
-
-  letter-spacing: .2em;
-}
-
-.seasons-nav-index {
-  text-align: right;
-
-  color:
-    var(--soft);
-
-  font-size: 6px;
-
-  letter-spacing: .16em;
-}
-
-/* =========================================================
-   HERO
-   ========================================================= */
-
-.seasons-hero {
-  position: relative;
-
-  z-index: 2;
-
-  min-height: 720px;
-
-  padding:
-    125px
-    8vw
-    95px;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  background:
-    radial-gradient(
-      ellipse at 50% 40%,
-      rgba(80,205,225,.16),
-      transparent 58%
-    );
-}
-
-.seasons-dark .seasons-hero {
-  background:
-    radial-gradient(
-      ellipse at 50% 40%,
-      rgba(45,170,190,.12),
-      transparent 58%
-    );
-}
-
-.seasons-kicker {
-  color:
-    var(--soft);
-
-  font-size: 7px;
-  font-weight: 600;
-
-  letter-spacing: .2em;
-}
-
-.seasons-hero h1 {
-  margin: 0;
-
-  color:
-    var(--text);
-
-  font-size:
-    clamp(
-      65px,
-      12vw,
-      175px
-    );
-
-  line-height: .86;
-
-  font-weight: 900;
-
-  letter-spacing: -.075em;
-}
-
-.seasons-hero h1 span {
-  color:
-    var(--soft);
-}
-
-.seasons-hero p {
-  width:
-    min(470px, 100%);
-
-  margin: 0;
-
-  color:
-    var(--muted);
-
-  font-size: 9px;
-
-  line-height: 1.9;
-}
-
-.seasons-scroll {
-  display: flex;
-  align-items: center;
-
-  gap: 15px;
-
-  color:
-    var(--soft);
-
-  font-size: 6px;
-
-  letter-spacing: .18em;
-}
-
-.seasons-scroll i {
-  width: 60px;
-  height: 1px;
-
-  background:
-    var(--accent);
-
-  opacity: .65;
-}
-
-/* =========================================================
-   INTRO
-   ========================================================= */
-
-.seasons-intro {
-  position: relative;
-
-  z-index: 2;
-
-  width:
-    min(1450px, 100%);
-
-  margin: 0 auto;
-
-  padding:
-    120px
-    5vw
-    90px;
-}
-
-.seasons-section-label {
-  display: flex;
-  align-items: center;
-
-  gap: 15px;
-
-  margin-bottom: 60px;
-
-  color:
-    var(--soft);
-
-  font-size: 7px;
-  font-weight: 600;
-
-  letter-spacing: .2em;
-}
-
-.seasons-section-label span {
-  color:
-    var(--text);
-}
-
-.seasons-intro-grid {
-  display: grid;
-
-  grid-template-columns:
-    1.1fr
-    .8fr;
-
-  gap: 10vw;
-
-  align-items: end;
-}
-
-.seasons-intro-grid h2 {
-  margin: 0;
-
-  color:
-    var(--text);
-
-  font-size:
-    clamp(
-      45px,
-      7vw,
-      100px
-    );
-
-  line-height: .92;
-
-  font-weight: 800;
-
-  letter-spacing: -.075em;
-}
-
-.seasons-intro-grid h2 span {
-  color:
-    var(--soft);
-}
-
-.seasons-intro-grid > div {
-  max-width: 470px;
-}
-
-.seasons-intro-grid p {
-  margin:
-    0
-    0
-    22px;
-
-  color:
-    var(--muted);
-
-  font-size: 9px;
-
-  line-height: 1.9;
-}
-
-/* =========================================================
-   TOWER
-   ========================================================= */
-
-.seasons-tower {
-  position: relative;
-
-  z-index: 2;
-
-  width:
-    min(1450px, 100%);
-
-  margin: 0 auto;
-
-  padding:
-    80px
-    5vw
-    160px;
-}
-
-.tower-line {
-  position: absolute;
-
-  top: 0;
-  bottom: 0;
-
-  left: 50%;
-
-  width: 1px;
-
-  transform:
-    translateX(-50%);
-
-  background:
-    linear-gradient(
-      to bottom,
-      transparent,
-      rgba(50,180,205,.35) 8%,
-      rgba(50,180,205,.35) 92%,
-      transparent
-    );
-}
-
-.seasons-dark .tower-line {
-  background:
-    linear-gradient(
-      to bottom,
-      transparent,
-      rgba(65,190,210,.25) 8%,
-      rgba(65,190,210,.25) 92%,
-      transparent
-    );
-}
-
-/* =========================================================
-   SEASON FLOOR
-   ========================================================= */
-
-.season-floor {
-  position: relative;
-
-  min-height: 590px;
-
-  margin:
-    0
-    auto
-    120px;
-
-  display: grid;
-
-  grid-template-columns:
-    100px
-    minmax(330px, .9fr)
-    minmax(330px, 1fr);
+    auto;
 
   gap: 30px;
 
   align-items: center;
-}
 
-.season-floor:last-child {
-  margin-bottom: 0;
-}
+  border-top: 1px solid var(--border);
 
-.floor-right {
-  grid-template-columns:
-    minmax(330px, 1fr)
-    minmax(330px, .9fr)
-    100px;
-}
+  color: var(--soft);
 
-.floor-right .floor-number {
-  grid-column: 3;
-  grid-row: 1;
-}
-
-.floor-right .floor-visual {
-  grid-column: 2;
-  grid-row: 1;
-}
-
-.floor-right .floor-content {
-  grid-column: 1;
-  grid-row: 1;
-}
-
-/* =========================================================
-   FLOOR NUMBER
-   ========================================================= */
-
-.floor-number {
-  align-self: start;
-
-  padding-top: 25px;
-
-  display: flex;
-  flex-direction: column;
-
-  gap: 5px;
-
-  color:
-    var(--soft);
-
-  font-size: 6px;
-
-  letter-spacing: .15em;
-}
-
-.floor-number strong {
-  color:
-    var(--text);
-
-  font-size: 32px;
-
+  font-size: 9px;
   font-weight: 800;
 
-  letter-spacing: -.08em;
+  letter-spacing: 0.14em;
 }
 
-/* =========================================================
-   FLOOR VISUAL
-   ========================================================= */
-
-.floor-visual {
-  position: relative;
-
-  min-height: 500px;
-
-  overflow: hidden;
-
-  border:
-    1px solid
-    var(--border);
-
-  border-radius: 34px;
-
-  background:
-    var(--glass);
-
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.72),
-    0 35px 90px var(--shadow);
-
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-
-  isolation: isolate;
-}
-
-.seasons-dark .floor-visual {
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.11),
-    0 35px 90px rgba(0,0,0,.28);
-}
-
-/* =========================================================
-   VISUAL SKY
-   ========================================================= */
-
-.visual-sky {
-  position: absolute;
-
-  inset: 0;
-
-  background:
-    linear-gradient(
-      180deg,
-      #a8e8f4 0%,
-      #dff7fb 65%,
-      #b7e8d6 100%
-    );
-
-  z-index: -4;
-}
-
-.seasons-dark .visual-sky {
-  background:
-    linear-gradient(
-      180deg,
-      #12313a,
-      #10252b 65%,
-      #12382f
-    );
-}
-
-/* =========================================================
-   VISUAL CITY
-   ========================================================= */
-
-.visual-city {
-  position: absolute;
-
-  left: -5%;
-  right: -5%;
-  bottom: -5%;
-
-  height: 58%;
-
-  background:
-    repeating-linear-gradient(
-      90deg,
-      rgba(255,255,255,.50) 0 7%,
-      rgba(150,220,230,.20) 7% 11%
-    );
-
-  clip-path:
-    polygon(
-      0 30%,
-      8% 18%,
-      16% 25%,
-      23% 8%,
-      31% 22%,
-      39% 12%,
-      48% 28%,
-      56% 4%,
-      66% 19%,
-      74% 10%,
-      83% 24%,
-      91% 7%,
-      100% 18%,
-      100% 100%,
-      0 100%
-    );
-
-  opacity: .8;
-
-  z-index: -2;
-}
-
-.seasons-dark .visual-city {
-  background:
-    repeating-linear-gradient(
-      90deg,
-      rgba(255,255,255,.09) 0 7%,
-      rgba(80,160,175,.10) 7% 11%
-    );
-}
-
-/* =========================================================
-   VISUAL CHARACTER
-   ========================================================= */
-
-.visual-character {
-  position: absolute;
-
-  left: 50%;
-  top: 50%;
-
-  transform:
-    translate(-50%, -50%);
-
-  width: 170px;
-  height: 170px;
-
-  display: grid;
-  place-items: center;
-
-  border:
-    1px solid
-    rgba(255,255,255,.65);
-
-  border-radius: 48px;
-
-  color:
-    rgba(15,65,80,.70);
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255,255,255,.62),
-      rgba(255,255,255,.20)
-    );
-
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.85),
-    0 30px 70px rgba(30,120,145,.18);
-
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-
-  font-size: 34px;
-  font-weight: 800;
-
-  text-align: center;
-
-  z-index: 3;
-}
-
-.seasons-dark .visual-character {
-  color:
-    rgba(255,255,255,.72);
-
-  background:
-    rgba(255,255,255,.075);
-
-  border-color:
-    rgba(255,255,255,.18);
-
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.12),
-    0 30px 70px rgba(0,0,0,.24);
-}
-
-/* =========================================================
-   VISUAL GLASS
-   ========================================================= */
-
-.visual-glass {
-  position: absolute;
-
-  inset: 0;
-
-  z-index: 4;
-
-  pointer-events: none;
-
-  background:
-    linear-gradient(
-      120deg,
-      rgba(255,255,255,.22),
-      transparent 35%
-    );
-}
-
-.seasons-dark .visual-glass {
-  background:
-    linear-gradient(
-      120deg,
-      rgba(255,255,255,.08),
-      transparent 35%
-    );
-}
-
-/* =========================================================
-   SEASON VISUAL VARIATIONS
-   ========================================================= */
-
-.season-army .visual-sky {
-  background:
-    linear-gradient(
-      180deg,
-      #9db9bd,
-      #d4dfda 65%,
-      #9caf98
-    );
-}
-
-.season-train .visual-sky {
-  background:
-    linear-gradient(
-      180deg,
-      #a9d8e8,
-      #f0eee2 65%,
-      #d5b98e
-    );
-}
-
-.season-murino .visual-sky {
-  background:
-    linear-gradient(
-      180deg,
-      #7f9ea9,
-      #b6c9ca 55%,
-      #788b91
-    );
-}
-
-.season-milk .visual-sky {
-  background:
-    linear-gradient(
-      180deg,
-      #b9d7e9,
-      #e8e4cf 55%,
-      #a8c7a1
-    );
-}
-
-.season-mytischi .visual-sky {
-  background:
-    linear-gradient(
-      180deg,
-      #72d5ef,
-      #c8f5f7 48%,
-      #7be0bb
-    );
-}
-
-.season-eldzheevka .visual-sky {
-  background:
-    linear-gradient(
-      180deg,
-      #d9ecf3,
-      #f6f8f1 55%,
-      #c8e4bd
-    );
-}
-
-.season-dark .season-dark .visual-sky {
-  background:
-    linear-gradient(
-      180deg,
-      #141827,
-      #272b42 55%,
-      #0d101a
-    );
-}
-
-.season-cat .visual-sky {
-  background:
-    linear-gradient(
-      180deg,
-      #b7d8eb,
-      #e9f0f2 55%,
-      #c7dbc8
-    );
-}
-
-.season-other .visual-sky {
-  background:
-    linear-gradient(
-      135deg,
-      #808080,
-      #008080,
-      #000080
-    );
-}
-
-/* =========================================================
-   FLOOR CONTENT
-   ========================================================= */
-
-.floor-content {
-  min-width: 0;
-
-  padding:
-    35px;
-
-  border:
-    1px solid
-    var(--border);
-
-  border-radius: 30px;
-
-  background:
-    var(--glass);
-
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.72),
-    0 25px 70px var(--shadow);
-
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-}
-
-.seasons-dark .floor-content {
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.10),
-    0 25px 70px rgba(0,0,0,.25);
-}
-
-.floor-meta {
-  display: flex;
-
-  justify-content: space-between;
-
-  gap: 20px;
-
-  padding-bottom: 20px;
-
-  border-bottom:
-    1px solid
-    var(--border);
-
-  color:
-    var(--soft);
-
-  font-size: 6px;
-
-  letter-spacing: .13em;
-}
-
-.floor-meta span:last-child {
-  color:
-    var(--accent-strong);
-}
-
-.floor-content h2 {
-  margin:
-    35px
-    0
-    20px;
-
-  color:
-    var(--text);
-
-  font-size:
-    clamp(
-      30px,
-      4vw,
-      57px
-    );
-
-  line-height: .98;
-
-  font-weight: 800;
-
-  letter-spacing: -.065em;
-}
-
-.floor-content p {
-  margin: 0;
-
-  color:
-    var(--muted);
-
-  font-size: 8px;
-
-  line-height: 1.9;
-}
-
-.floor-bottom {
-  margin-top: 35px;
-
-  padding-top: 16px;
-
-  border-top:
-    1px solid
-    var(--border);
-
-  display: flex;
-
-  justify-content: space-between;
-
-  color:
-    var(--soft);
-
-  font-size: 6px;
-
-  letter-spacing: .15em;
-}
-
-.floor-bottom span:last-child {
-  color:
-    var(--accent);
-
-  font-size: 16px;
-}
-
-/* =========================================================
-   END SECTION
-   ========================================================= */
-
-.seasons-end {
-  position: relative;
-
-  min-height: 650px;
-
-  display: grid;
-
-  place-items: center;
-
-  overflow: hidden;
-
-  padding:
-    80px
-    5vw;
-
-  background:
-    radial-gradient(
-      circle at center,
-      rgba(65,200,220,.18),
-      transparent 55%
-    );
-}
-
-.seasons-dark .seasons-end {
-  background:
-    radial-gradient(
-      circle at center,
-      rgba(45,170,190,.10),
-      transparent 55%
-    );
-}
-
-.end-orbit {
-  position: absolute;
-
-  border:
-    1px solid
-    rgba(55,180,200,.14);
-
-  border-radius: 50%;
-
-  pointer-events: none;
-}
-
-.end-orbit-one {
-  width: 600px;
-  height: 600px;
-}
-
-.end-orbit-two {
-  width: 850px;
-  height: 850px;
-}
-
-.end-content {
-  position: relative;
-
-  z-index: 5;
-
-  width:
-    min(700px, 90%);
-
-  padding: 55px;
-
-  border:
-    1px solid
-    var(--border);
-
-  border-radius: 35px;
-
-  background:
-    var(--glass-strong);
-
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.72),
-    0 50px 120px var(--shadow);
-
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
-}
-
-.end-content > span {
-  display: inline-block;
-
-  margin-bottom: 20px;
-
-  color:
-    var(--soft);
-
-  font-size: 6px;
-
-  font-weight: 600;
-
-  letter-spacing: .2em;
-}
-
-.end-content h2 {
-  margin: 0;
-
-  color:
-    var(--text);
-
-  font-size:
-    clamp(
-      55px,
-      8vw,
-      110px
-    );
-
-  line-height: .82;
-
-  font-weight: 850;
-
-  letter-spacing: -.075em;
-}
-
-.end-content h2 span {
-  color:
-    var(--soft);
-}
-
-.end-content p {
-  max-width: 550px;
-
-  margin:
-    25px
-    0;
-
-  color:
-    var(--muted);
-
-  font-size: 8px;
-
-  line-height: 1.8;
-}
-
-.seasons-home-button {
-  display: flex;
-  align-items: center;
-
-  gap: 25px;
-
-  min-height: 42px;
-
-  padding:
-    0
-    14px
-    0
-    17px;
-
-  border:
-    1px solid
-    var(--border);
-
-  border-radius: 999px;
-
-  background:
-    var(--glass);
-
-  color:
-    var(--text);
-
-  font-size: 8px;
-
-  cursor: pointer;
-
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.65);
-
-  transition:
-    transform .2s ease,
-    background .2s ease;
-}
-
-.seasons-home-button:hover {
-  transform: translateX(-3px);
-
-  background:
-    var(--glass-strong);
-}
-
-.seasons-home-button svg {
-  color:
-    var(--accent-strong);
-}
-
-/* =========================================================
-   FOOTER
-   ========================================================= */
-
-.seasons-footer {
-  position: relative;
-
-  z-index: 2;
-
-  min-height: 75px;
-
-  padding:
-    12px
-    5vw;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  border-top:
-    1px solid
-    var(--border);
-
-  background:
-    rgba(255,255,255,.20);
-
-  color:
-    var(--soft);
-
-  font-size: 6px;
-
-  letter-spacing: .16em;
-
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-}
-
-.seasons-dark .seasons-footer {
-  background:
-    rgba(5,15,18,.35);
-}
-
-.seasons-footer strong {
-  color:
-    var(--text);
-
-  font-size: 15px;
-
-  letter-spacing: -.04em;
-}
-
-/* =========================================================
-   RETRO THEME
-   ========================================================= */
-
-.seasons-retro {
-  --bg: #c0c0c0;
-  --bg-secondary: #d4d0c8;
-
-  --text: #000000;
-  --muted: #202020;
-  --soft: #404040;
-
-  --accent: #000080;
-  --accent-strong: #000080;
-
-  --border: #808080;
-
-  --glass: #c0c0c0;
-  --glass-strong: #d4d0c8;
-
-  --shadow: transparent;
-
-  min-height: 100vh;
-
-  color: #000000;
-
-  background:
-    repeating-linear-gradient(
-      0deg,
-      #c0c0c0 0,
-      #c0c0c0 2px,
-      #c8c8c8 2px,
-      #c8c8c8 4px
-    );
+.bio-footer div {
+  color: var(--text);
 
   font-family:
-    "MS Sans Serif",
-    "Microsoft Sans Serif",
-    Tahoma,
-    Arial,
+    'Space Grotesk',
     sans-serif;
 
-  transition: none;
+  font-size: 14px;
 }
 
-.seasons-retro * {
-  border-radius: 0;
-}
-
-.seasons-retro button {
-  font-family:
-    "MS Sans Serif",
-    "Microsoft Sans Serif",
-    Tahoma,
-    Arial,
-    sans-serif;
-}
-
-.seasons-retro .seasons-background-grid {
-  opacity: .18;
-
-  background-image:
-    linear-gradient(
-      rgba(0,0,128,.15) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      90deg,
-      rgba(0,0,128,.15) 1px,
-      transparent 1px
-    );
-
-  background-size: 32px 32px;
-}
-
-.seasons-retro .seasons-glow {
-  display: none;
-}
 
 /* =========================================================
-   RETRO SWITCHER
+   RETRO — GENERAL OVERRIDES
    ========================================================= */
 
-.seasons-retro .seasons-theme-switcher {
-  top: 12px;
-  right: 12px;
-
-  gap: 6px;
-
-  min-height: 34px;
-
-  padding:
-    3px
-    7px
-    3px
-    3px;
-
-  border:
-    2px
-    solid
-    #ffffff;
-
-  border-right-color:
-    #404040;
-
-  border-bottom-color:
-    #404040;
-
-  background:
-    #c0c0c0;
-
-  color:
-    #000000;
-
-  border-radius: 0;
-
-  box-shadow:
-    inset 1px 1px 0 #dfdfdf,
-    inset -1px -1px 0 #808080;
-
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-
-  font-size: 9px;
-
-  transition: none;
-}
-
-.seasons-retro .seasons-theme-switcher:hover {
-  transform: none;
-
-  background: #d4d0c8;
-
-  box-shadow:
-    inset 1px 1px 0 #dfdfdf,
-    inset -1px -1px 0 #808080;
-}
-
-.seasons-retro .seasons-theme-switcher:active {
-  transform: translate(1px,1px);
-
-  box-shadow:
-    inset 1px 1px 0 #808080,
-    inset -1px -1px 0 #ffffff;
-}
-
-.seasons-retro .seasons-theme-icon {
-  width: 25px;
-  height: 25px;
-
-  border:
-    2px
-    solid
-    #808080;
-
-  border-top-color: #ffffff;
-  border-left-color: #ffffff;
-
-  background: #c0c0c0;
-
-  color: #000080;
-
-  border-radius: 0;
-
-  box-shadow:
-    inset 1px 1px 0 #dfdfdf,
-    inset -1px -1px 0 #404040;
-}
-
-/* =========================================================
-   RETRO NAV
-   ========================================================= */
-
-.seasons-retro .seasons-nav {
-  min-height: 58px;
-
-  padding:
-    0
-    15px;
-
-  border-bottom:
-    3px
-    double
-    #000080;
-
-  background:
-    #c0c0c0;
-
-  box-shadow:
-    0 2px 0 #ffffff;
-
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-}
-
-.seasons-retro .seasons-back {
-  gap: 7px;
-
-  padding:
-    4px
-    7px;
-
-  border:
-    2px
-    solid
-    #ffffff;
-
-  border-right-color:
-    #404040;
-
-  border-bottom-color:
-    #404040;
-
-  background:
-    #c0c0c0;
-
-  color:
-    #000080;
-
-  border-radius: 0;
-
-  box-shadow:
-    inset 1px 1px 0 #dfdfdf,
-    inset -1px -1px 0 #808080;
-
-  font-size: 10px;
-
-  transition: none;
-}
-
-.seasons-retro .seasons-back:hover {
-  transform: none;
-
-  background:
-    #d4d0c8;
-}
-
-.seasons-retro .seasons-nav-center {
-  color:
-    #000080;
-
-  font-family:
-    "Courier New",
-    monospace;
-
-  font-size: 9px;
-}
-
-.seasons-retro .seasons-nav-index {
-  margin-right: 70px;
-
-  color:
-    #000000;
-
-  font-family:
-    "Courier New",
-    monospace;
-
-  font-size: 9px;
-}
-
-/* =========================================================
-   RETRO HERO
-   ========================================================= */
-
-.seasons-retro .seasons-hero {
-  min-height: 650px;
-
-  padding:
-    90px
-    8vw
-    80px;
-
-  color:
-    #ffffff;
-
-  background:
-    linear-gradient(
-      135deg,
-      #008080 0%,
-      #006666 55%,
-      #000080 100%
-    );
-
-  border-bottom:
-    8px
-    double
-    #ffffff;
-}
-
-.seasons-retro .seasons-hero::before {
-  content: "";
-
-  position: absolute;
-
-  inset: 20px;
-
-  border:
-    2px
-    solid
-    rgba(255,255,255,.7);
-
-  pointer-events: none;
-}
-
-.seasons-retro .seasons-hero::after {
-  content:
-    "MELLNET_ARCHIVE.EXE";
-
-  position: absolute;
-
-  right: 35px;
-  bottom: 25px;
-
-  padding:
-    5px
-    8px;
-
-  color:
-    #000000;
-
-  background:
-    #c0c0c0;
-
-  border:
-    2px
-    solid
-    #ffffff;
-
-  border-right-color:
-    #404040;
-
-  border-bottom-color:
-    #404040;
-
-  font-family:
-    "Courier New",
-    monospace;
-
-  font-size: 9px;
-}
-
-.seasons-retro .seasons-kicker {
-  width: fit-content;
-
-  margin-bottom: 20px;
-
-  padding:
-    5px
-    8px;
-
-  color:
-    #ffffff;
-
-  background:
-    #000080;
-
-  border:
-    1px
-    solid
-    #ffffff;
-
-  font-family:
-    "Courier New",
-    monospace;
-
-  font-size: 9px;
-}
-
-.seasons-retro .seasons-hero h1 {
-  color:
-    #ffff00;
-
-  font-family:
-    "Arial Black",
-    Impact,
-    sans-serif;
-
-  font-size:
-    clamp(
-      60px,
-      12vw,
-      170px
-    );
-
-  line-height: .82;
-
-  letter-spacing: -.07em;
-
-  text-shadow:
-    5px 5px 0 #000000,
-    9px 9px 0 #000080;
-}
-
-.seasons-retro .seasons-hero h1 span {
-  color:
-    #ffffff;
-}
-
-.seasons-retro .seasons-hero p {
-  max-width: 650px;
-
-  margin:
-    35px
-    0
-    0;
-
-  padding:
-    12px
-    15px;
-
-  color:
-    #000000;
-
-  background:
-    #c0c0c0;
-
-  border:
-    3px
-    solid
-    #ffffff;
-
-  border-right-color:
-    #404040;
-
-  border-bottom-color:
-    #404040;
-
-  box-shadow:
-    inset 1px 1px 0 #dfdfdf,
-    inset -1px -1px 0 #808080;
-
-  font-family:
-    Arial,
-    sans-serif;
-
-  font-size: 12px;
-
-  line-height: 1.5;
-}
-
-.seasons-retro .seasons-scroll {
-  margin-top: 40px;
-
-  color:
-    #ffff00;
-
-  font-family:
-    "Courier New",
-    monospace;
-
-  font-size: 9px;
-}
-
-.seasons-retro .seasons-scroll i {
-  background:
-    #ffff00;
-}
-
-/* =========================================================
-   RETRO INTRO
-   ========================================================= */
-
-.seasons-retro .seasons-intro {
-  padding:
-    80px
-    5vw;
-
-  background:
-    #ffffff;
-
-  border-bottom:
-    4px
-    double
-    #000080;
-}
-
-.seasons-retro .seasons-section-label {
-  margin-bottom: 45px;
-
-  padding:
-    5px
-    9px;
-
-  width: fit-content;
-
-  border:
-    2px
-    solid
-    #808080;
-
-  border-top-color:
-    #ffffff;
-
-  border-left-color:
-    #ffffff;
-
-  background:
-    #d4d0c8;
-
-  color:
-    #000000;
-
-  font-family:
-    "Courier New",
-    monospace;
-
-  font-size: 9px;
-}
-
-.seasons-retro .seasons-section-label span {
-  color:
-    #000080;
-}
-
-.seasons-retro .seasons-intro-grid {
-  gap: 70px;
-}
-
-.seasons-retro .seasons-intro-grid h2 {
-  color:
-    #000000;
-
-  font-family:
-    "Times New Roman",
-    Times,
-    serif;
-
-  font-size:
-    clamp(
-      50px,
-      7vw,
-      105px
-    );
-
-  line-height: .85;
-}
-
-.seasons-retro .seasons-intro-grid h2 span {
-  color:
-    #000080;
-}
-
-.seasons-retro .seasons-intro-grid > div {
-  max-width: none;
-
-  padding:
-    18px;
-
-  border:
-    2px
-    solid
-    #808080;
-
-  border-top-color:
-    #ffffff;
-
-  border-left-color:
-    #ffffff;
-
-  background:
-    #d4d0c8;
+.biography-retro .bio-hero,
+.biography-retro .bio-glass-panel,
+.biography-retro .story-card,
+.biography-retro .quote-glass,
+.biography-retro .bio-final {
+  border: 2px solid #71838b;
+
+  border-radius: 3px;
+
+  background: #dbe7eb;
 
   box-shadow:
     inset 1px 1px 0 #ffffff,
-    inset -2px -2px 0 #404040;
+    inset -2px -2px 0 #75868d,
+    5px 5px 0 rgba(0, 0, 0, 0.22);
+
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
-.seasons-retro .seasons-intro-grid p {
-  color:
-    #111111;
+.biography-retro .bio-hero {
+  overflow: visible;
+}
 
+.biography-retro .bio-hero-content {
+  background: #dbe7eb;
+}
+
+.biography-retro .bio-hero h1,
+.biography-retro .bio-big-text,
+.biography-retro .bio-story-heading h2,
+.biography-retro .quote-glass blockquote,
+.biography-retro .bio-final-content h2 {
   font-family:
     Arial,
+    Helvetica,
     sans-serif;
 
-  font-size: 12px;
-
-  line-height: 1.55;
+  letter-spacing: -0.04em;
 }
 
-/* =========================================================
-   RETRO TOWER
-   ========================================================= */
-
-.seasons-retro .seasons-tower {
-  padding:
-    100px
-    5vw;
+.biography-retro .bio-hero h1 {
+  font-size: clamp(52px, 7vw, 100px);
 }
 
-.seasons-retro .tower-line {
-  width: 4px;
+.biography-retro .bio-hero-image {
+  border-right: 2px solid #71838b;
+}
 
-  background:
-    repeating-linear-gradient(
-      0deg,
-      #000080 0,
-      #000080 10px,
-      #ffffff 10px,
-      #ffffff 14px
-    );
+.biography-retro .bio-image-gradient,
+.biography-retro .bio-image-glass {
+  display: none;
+}
+
+.biography-retro .bio-floating-data {
+  border: 2px solid #71838b;
+
+  border-radius: 2px;
+
+  background: #dbe7eb;
+
+  color: #07131a;
 
   box-shadow:
-    2px 0 0 #404040,
-    -2px 0 0 #ffffff;
-}
-
-/* =========================================================
-   RETRO FLOOR
-   ========================================================= */
-
-.seasons-retro .season-floor {
-  min-height: 430px;
-
-  margin-bottom: 65px;
-
-  padding: 12px;
-
-  gap: 20px;
-
-  border:
-    3px
-    solid
-    #ffffff;
-
-  border-right-color:
-    #404040;
-
-  border-bottom-color:
-    #404040;
-
-  background:
-    #d4d0c8;
-
-  box-shadow:
-    inset 1px 1px 0 #dfdfdf,
-    inset -2px -2px 0 #808080;
-}
-
-.seasons-retro .season-floor::before {
-  content: "";
-
-  position: absolute;
-
-  top: 10px;
-  left: 50%;
-
-  width: 16px;
-  height: 16px;
-
-  transform:
-    translateX(-50%);
-
-  background:
-    #000080;
-
-  border:
-    2px
-    solid
-    #ffffff;
-
-  z-index: 3;
-}
-
-.seasons-retro .floor-left {
-  transform:
-    translateX(-35px);
-}
-
-.seasons-retro .floor-right {
-  transform:
-    translateX(35px);
-}
-
-/* =========================================================
-   RETRO NUMBER
-   ========================================================= */
-
-.seasons-retro .floor-number {
-  padding: 10px;
-
-  border:
-    2px
-    solid
-    #808080;
-
-  border-top-color:
-    #ffffff;
-
-  border-left-color:
-    #ffffff;
-
-  background:
-    #c0c0c0;
-
-  text-align: center;
-}
-
-.seasons-retro .floor-number span {
-  color:
-    #555555;
-
-  font-family:
-    "Courier New",
-    monospace;
-
-  font-size: 8px;
-}
-
-.seasons-retro .floor-number strong {
-  margin-top: 5px;
-
-  color:
-    #000080;
-
-  font-family:
-    "Times New Roman",
-    Times,
-    serif;
-
-  font-size: 45px;
-}
-
-/* =========================================================
-   RETRO VISUAL
-   ========================================================= */
-
-.seasons-retro .floor-visual {
-  min-height: 400px;
-
-  border:
-    3px
-    solid
-    #808080;
-
-  border-top-color:
-    #ffffff;
-
-  border-left-color:
-    #ffffff;
-
-  background:
-    #008080;
-
-  border-radius: 0;
-
-  box-shadow:
-    2px 2px 0 #404040;
+    inset 1px 1px 0 #ffffff,
+    inset -1px -1px 0 #75868d,
+    3px 3px 0 rgba(0, 0, 0, 0.2);
 
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
 }
 
-.seasons-retro .visual-sky {
-  background:
-    linear-gradient(
-      180deg,
-      #008080 0%,
-      #00a0a0 55%,
-      #d4d0c8 100%
-    );
+.biography-retro .bio-floating-data span {
+  opacity: 1;
+
+  color: #51666d;
 }
 
-.seasons-retro .visual-city {
-  background:
-    repeating-linear-gradient(
-      90deg,
-      #000080 0,
-      #000080 18px,
-      #008080 18px,
-      #008080 35px
-    );
-
-  border-top:
-    4px
-    solid
-    #000080;
+.biography-retro .bio-floating-data strong {
+  color: #07131a;
 }
 
-.seasons-retro .visual-city::after {
-  content: "";
-
-  position: absolute;
-
-  inset: 10px;
-
-  background:
-    repeating-linear-gradient(
-      90deg,
-      transparent 0,
-      transparent 12px,
-      #ffff00 12px,
-      #ffff00 16px,
-      transparent 16px,
-      transparent 25px
-    );
-
-  opacity: .8;
+.biography-retro .bio-glass-panel,
+.biography-retro .story-card,
+.biography-retro .quote-glass,
+.biography-retro .bio-final {
+  box-shadow:
+    inset 1px 1px 0 #ffffff,
+    inset -2px -2px 0 #75868d,
+    5px 5px 0 rgba(0, 0, 0, 0.22);
 }
 
-.seasons-retro .visual-character {
-  min-width: 90px;
+.biography-retro .bio-photo {
+  border: 2px solid #71838b;
 
-  width: auto;
-  height: auto;
-
-  padding:
-    12px
-    16px;
-
-  border:
-    3px
-    solid
-    #ffffff;
-
-  border-right-color:
-    #404040;
-
-  border-bottom-color:
-    #404040;
-
-  border-radius: 0;
-
-  background:
-    #c0c0c0;
-
-  color:
-    #000080;
+  border-radius: 2px;
 
   box-shadow:
-    5px 5px 0 #000000;
-
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-
-  font-family:
-    "Times New Roman",
-    Times,
-    serif;
-
-  font-size: 28px;
+    inset 1px 1px 0 #ffffff,
+    inset -1px -1px 0 #75868d,
+    3px 3px 0 rgba(0, 0, 0, 0.18);
 }
 
-.seasons-retro .visual-glass {
-  background:
-    repeating-linear-gradient(
-      0deg,
-      transparent 0,
-      transparent 3px,
-      rgba(255,255,255,.06) 3px,
-      rgba(255,255,255,.06) 4px
-    );
-}
+.biography-retro .photo-overlay {
+  border: 1px solid #71838b;
 
-/* =========================================================
-   RETRO CONTENT
-   ========================================================= */
+  border-radius: 1px;
 
-.seasons-retro .floor-content {
-  padding:
-    20px;
+  background: #dbe7eb;
 
-  border:
-    2px
-    solid
-    #808080;
-
-  border-top-color:
-    #ffffff;
-
-  border-left-color:
-    #ffffff;
-
-  border-radius: 0;
-
-  background:
-    #ffffff;
-
-  box-shadow: none;
+  color: #07131a;
 
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
 }
 
-.seasons-retro .floor-meta {
-  padding-bottom: 10px;
-
-  border-bottom:
-    1px
-    solid
-    #808080;
-
-  color:
-    #555555;
-
-  font-family:
-    "Courier New",
-    monospace;
-
-  font-size: 9px;
+.biography-retro .photo-overlay span,
+.biography-retro .photo-overlay strong {
+  color: #07131a;
 }
 
-.seasons-retro .floor-meta span:last-child {
-  color:
-    #000080;
+.biography-retro .story-card:hover {
+  transform: none;
 }
 
-.seasons-retro .floor-content h2 {
-  margin:
-    25px
-    0
-    15px;
-
-  color:
-    #000080;
-
-  font-family:
-    "Times New Roman",
-    Times,
-    serif;
-
-  font-size:
-    clamp(
-      35px,
-      4vw,
-      65px
-    );
-
-  line-height: .9;
+.biography-retro .story-card-featured {
+  background: #d0e0e5;
 }
 
-.seasons-retro .floor-content p {
-  color:
-    #222222;
-
-  font-family:
-    Arial,
-    sans-serif;
-
-  font-size: 12px;
-
-  line-height: 1.55;
+.biography-retro .quote-decoration {
+  color: rgba(0, 84, 166, 0.08);
 }
 
-.seasons-retro .floor-bottom {
-  padding-top: 20px;
-
-  border-top:
-    1px
-    solid
-    #808080;
-
-  color:
-    #555555;
-
-  font-family:
-    "Courier New",
-    monospace;
-
-  font-size: 8px;
+.biography-retro .quote-glass {
+  width: min(850px, 100%);
 }
 
-.seasons-retro .floor-bottom span:last-child {
-  color:
-    #000080;
-
-  font-size: 16px;
+.biography-retro .quote-mark {
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-/* =========================================================
-   RETRO END
-   ========================================================= */
+.biography-retro .bio-back-button {
+  border: 2px solid #71838b;
 
-.seasons-retro .seasons-end {
-  min-height: 650px;
+  border-radius: 2px;
 
-  padding:
-    80px
-    5vw;
-
-  background:
-    #000080;
-
-  border-top:
-    8px
-    double
-    #ffffff;
-
-  border-bottom:
-    8px
-    double
-    #ffffff;
-}
-
-.seasons-retro .end-orbit {
-  border:
-    2px
-    solid
-    rgba(255,255,255,.25);
-}
-
-.seasons-retro .end-content {
-  padding:
-    35px;
-
-  border:
-    3px
-    solid
-    #ffffff;
-
-  border-right-color:
-    #404040;
-
-  border-bottom-color:
-    #404040;
-
-  border-radius: 0;
-
-  background:
-    #c0c0c0;
+  background: #dbe7eb;
 
   box-shadow:
-    inset 1px 1px 0 #dfdfdf,
-    inset -2px -2px 0 #404040;
-
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
+    inset 1px 1px 0 #ffffff,
+    inset -1px -1px 0 #75868d,
+    3px 3px 0 rgba(0, 0, 0, 0.2);
 }
 
-.seasons-retro .end-content > span {
-  margin-bottom: 20px;
-
-  padding:
-    4px
-    7px;
-
-  color:
-    #ffffff;
-
-  background:
-    #800000;
-
-  font-family:
-    "Courier New",
-    monospace;
-
-  font-size: 9px;
-}
-
-.seasons-retro .end-content h2 {
-  color:
-    #000000;
-
-  font-family:
-    "Times New Roman",
-    Times,
-    serif;
-
-  font-size:
-    clamp(
-      55px,
-      8vw,
-      110px
-    );
-}
-
-.seasons-retro .end-content h2 span {
-  color:
-    #000080;
-}
-
-.seasons-retro .end-content p {
-  color:
-    #222222;
-
-  font-family:
-    Arial,
-    sans-serif;
-
-  font-size: 12px;
-}
-
-.seasons-retro .seasons-home-button {
-  min-height: 42px;
-
-  padding:
-    5px
-    9px
-    5px
-    12px;
-
-  border:
-    2px
-    solid
-    #ffffff;
-
-  border-right-color:
-    #404040;
-
-  border-bottom-color:
-    #404040;
-
-  border-radius: 0;
-
-  background:
-    #c0c0c0;
-
-  color:
-    #000000;
-
-  font-size: 10px;
-  font-weight: 700;
-
-  box-shadow:
-    inset 1px 1px 0 #dfdfdf,
-    inset -1px -1px 0 #808080;
-
-  transition: none;
-}
-
-.seasons-retro .seasons-home-button:hover {
+.biography-retro .bio-back-button:hover {
   transform: none;
 
-  background:
-    #eeeeee;
+  background: #e8f1f3;
 }
 
-.seasons-retro .seasons-home-button:active {
-  transform:
-    translate(1px,1px);
-
-  box-shadow:
-    inset 1px 1px 0 #808080,
-    inset -1px -1px 0 #ffffff;
+.biography-retro .bio-footer {
+  border-top: 2px solid #71838b;
 }
 
-.seasons-retro .seasons-home-button svg {
-  color:
-    #000080;
-}
 
 /* =========================================================
-   RETRO FOOTER
+   DARK — GLASS DETAILS
    ========================================================= */
 
-.seasons-retro .seasons-footer {
-  min-height: 65px;
-
-  padding:
-    12px
-    5vw;
-
-  border-top:
-    3px
-    double
-    #808080;
-
+.biography-dark .bio-hero-content {
   background:
-    #c0c0c0;
-
-  color:
-    #555555;
-
-  font-family:
-    "Courier New",
-    monospace;
-
-  font-size: 9px;
-
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
+    linear-gradient(
+      135deg,
+      rgba(28, 43, 49, 0.65),
+      rgba(11, 20, 24, 0.5)
+    );
 }
 
-.seasons-retro .seasons-footer strong {
-  color:
-    #000080;
-
-  font-family:
-    "Times New Roman",
-    Times,
-    serif;
-
-  font-size: 20px;
+.biography-dark .bio-glass-panel,
+.biography-dark .story-card,
+.biography-dark .quote-glass,
+.biography-dark .bio-final {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(28, 44, 50, 0.64),
+      rgba(12, 22, 27, 0.54)
+    );
 }
+
+.biography-dark .story-card-featured {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(42, 191, 211, 0.16),
+      rgba(20, 34, 40, 0.58)
+    );
+}
+
 
 /* =========================================================
    RESPONSIVE
    ========================================================= */
 
-@media (max-width: 950px) {
-  .seasons-nav {
-    grid-template-columns:
-      1fr
-      auto;
+@media (max-width: 1050px) {
+  .bio-hero {
+    grid-template-columns: 1fr;
   }
 
-  .seasons-nav-center {
+  .bio-hero-image {
+    min-height: 520px;
+  }
+
+  .bio-hero-content {
+    min-height: 500px;
+  }
+
+  .bio-intro-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bio-big-text {
+    max-width: 700px;
+  }
+
+  .bio-story-heading {
+    grid-template-columns: 1fr;
+  }
+
+  .bio-final {
+    grid-template-columns: 1fr;
+  }
+
+  .bio-final-image {
+    min-height: 500px;
+  }
+}
+
+
+@media (max-width: 800px) {
+  .bio-nav,
+  .bio-hero,
+  .bio-section,
+  .bio-quote-section,
+  .bio-final,
+  .bio-footer {
+    width: calc(100% - 30px);
+  }
+
+  .bio-nav {
+    grid-template-columns: 1fr auto;
+  }
+
+  .bio-nav-status {
     display: none;
   }
 
-  .seasons-nav-index {
-    margin-right: 65px;
+  .bio-theme-switcher {
+    top: 14px;
+    right: 15px;
   }
 
-  .seasons-intro-grid {
+  .bio-hero {
+    margin-top: 25px;
+
+    border-radius: 24px;
+  }
+
+  .bio-hero-image {
+    min-height: 430px;
+  }
+
+  .bio-hero-content {
+    min-height: 470px;
+
+    padding: 45px 30px;
+  }
+
+  .bio-hero h1 {
+    font-size: clamp(52px, 15vw, 90px);
+  }
+
+  .bio-hero-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .bio-scroll {
+    align-items: flex-start;
+  }
+
+  .bio-floating-data {
+    display: none;
+  }
+
+  .bio-section {
+    margin-top: 100px;
+  }
+
+  .bio-gallery {
+    grid-template-columns: 1fr 1fr;
+
+    grid-template-rows:
+      300px
+      220px
+      220px;
+  }
+
+  .photo-main {
+    grid-row: auto;
+    grid-column: span 2;
+  }
+
+  .photo-wide {
+    grid-column: span 2;
+  }
+
+  .story-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .story-card {
+    min-height: 280px;
+  }
+
+  .quote-glass {
+    padding: 40px 28px;
+  }
+
+  .bio-final-content {
+    padding: 45px 30px;
+  }
+
+  .bio-footer {
     grid-template-columns: 1fr;
 
-    gap: 45px;
-  }
-
-  .season-floor,
-  .floor-right {
-    grid-template-columns:
-      70px
-      1fr;
-  }
-
-  .floor-right .floor-number,
-  .floor-right .floor-visual,
-  .floor-right .floor-content {
-    grid-column: auto;
-    grid-row: auto;
-  }
-
-  .floor-right .floor-number {
-    grid-column: 1;
-  }
-
-  .floor-right .floor-visual {
-    grid-column: 2;
-  }
-
-  .floor-right .floor-content {
-    grid-column: 1 / -1;
-  }
-}
-
-@media (max-width: 700px) {
-  .seasons-theme-switcher {
-    top: 10px;
-    right: 10px;
-  }
-
-  .seasons-nav {
-    padding:
-      0
-      12px;
-  }
-
-  .seasons-nav-index {
-    display: none;
-  }
-
-  .seasons-hero {
-    min-height: 600px;
-
-    padding:
-      100px
-      25px
-      60px;
-  }
-
-  .seasons-hero h1 {
-    font-size:
-      clamp(
-        55px,
-        17vw,
-        105px
-      );
-  }
-
-  .seasons-hero p {
-    font-size: 8px;
-  }
-
-  .seasons-intro {
-    padding:
-      70px
-      20px
-      50px;
-  }
-
-  .seasons-intro-grid h2 {
-    font-size:
-      clamp(
-        45px,
-        14vw,
-        75px
-      );
-  }
-
-  .seasons-tower {
-    padding:
-      70px
-      15px
-      100px;
-  }
-
-  .tower-line {
-    left: 18px;
-
-    transform: none;
-  }
-
-  .season-floor,
-  .floor-right,
-  .floor-left {
-    display: grid;
-
-    grid-template-columns:
-      55px
-      1fr;
-
     gap: 10px;
-
-    min-height: 0;
-
-    margin:
-      0
-      0
-      55px;
-
-    transform: none;
-  }
-
-  .floor-number,
-  .floor-right .floor-number {
-    grid-column: 1;
-    grid-row: 1;
-
-    min-height: 100px;
-
-    padding-top: 15px;
-  }
-
-  .floor-visual,
-  .floor-right .floor-visual {
-    grid-column: 2;
-    grid-row: 1;
-
-    min-height: 260px;
-  }
-
-  .floor-content,
-  .floor-right .floor-content {
-    grid-column: 1 / -1;
-    grid-row: 2;
-
-    padding: 25px;
-  }
-
-  .floor-number strong {
-    font-size: 25px;
-  }
-
-  .visual-character {
-    width: 120px;
-    height: 120px;
-
-    border-radius: 35px;
-
-    font-size: 26px;
-  }
-
-  .floor-content h2 {
-    font-size: 40px;
-  }
-
-  .seasons-end {
-    min-height: 540px;
-
-    padding:
-      50px
-      15px;
-  }
-
-  .end-content {
-    width: 100%;
-
-    padding: 30px;
-  }
-
-  .end-content h2 {
-    font-size:
-      clamp(
-        50px,
-        14vw,
-        80px
-      );
-  }
-
-  .seasons-footer {
-    flex-direction: column;
-
-    align-items: flex-start;
-
-    gap: 8px;
-
-    padding:
-      18px
-      20px;
-  }
-
-  /* Retro mobile */
-
-  .seasons-retro .seasons-hero {
-    padding:
-      80px
-      20px
-      60px;
-  }
-
-  .seasons-retro .seasons-hero::before {
-    inset: 10px;
-  }
-
-  .seasons-retro .seasons-intro {
-    padding:
-      60px
-      15px;
-    }
-
-  .seasons-retro .seasons-tower {
-    padding:
-      70px
-      10px;
-    }
-
-  .seasons-retro .tower-line {
-    left: 15px;
-  }
-
-  .seasons-retro .season-floor,
-  .seasons-retro .floor-right,
-  .seasons-retro .floor-left {
-    margin-left: 20px;
-    margin-right: 0;
-
-    transform: none;
-  }
-
-  .seasons-retro .floor-visual {
-    min-height: 250px;
-  }
-
-  .seasons-retro .floor-content {
-    padding: 20px;
-  }
-
-  .seasons-retro .end-content {
-    padding: 22px;
   }
 }
 
-@media (max-width: 450px) {
-  .seasons-hero {
-    min-height: 560px;
 
-    padding-top: 85px;
-  }
-
-  .seasons-hero h1 {
-    font-size:
-      19vw;
-  }
-
-  .seasons-theme-switcher {
+@media (max-width: 520px) {
+  .bio-theme-switcher {
     min-height: 34px;
+
+    padding: 0 10px;
+
+    font-size: 9px;
   }
 
-  .seasons-intro-grid p {
-    font-size: 8px;
+  .bio-logo {
+    font-size: 18px;
   }
 
-  .season-floor,
-  .floor-right,
-  .floor-left {
-    grid-template-columns:
-      45px
-      1fr;
+  .bio-hero-image {
+    min-height: 350px;
   }
 
-  .floor-number strong {
-    font-size: 22px;
+  .bio-hero-content {
+    padding: 35px 22px;
   }
 
-  .floor-number span {
-    font-size: 5px;
+  .bio-hero h1 {
+    font-size: 48px;
   }
 
-  .floor-content h2 {
-    font-size: 34px;
+  .bio-big-text {
+    font-size: 48px;
   }
 
-  .floor-content p {
-    font-size: 8px;
+  .bio-glass-panel {
+    padding: 24px 20px;
   }
 
-  .visual-character {
-    width: 105px;
-    height: 105px;
-
-    font-size: 22px;
+  .panel-meta {
+    grid-template-columns: 1fr;
   }
 
-  .seasons-retro .seasons-nav {
-    padding: 0 7px;
+  .bio-gallery {
+    display: flex;
+    flex-direction: column;
   }
 
-  .seasons-retro .season-floor,
-  .seasons-retro .floor-right,
-  .seasons-retro .floor-left {
-    grid-template-columns:
-      42px
-      1fr;
+  .bio-photo {
+    height: 260px;
+  }
 
-    margin-left: 17px;
+  .bio-photo.photo-main {
+    height: 340px;
+  }
+
+  .bio-photo.photo-wide {
+    height: 280px;
+  }
+
+  .bio-story-heading h2 {
+    font-size: 52px;
+  }
+
+  .quote-glass blockquote {
+    font-size: 29px;
+  }
+
+  .bio-final-image {
+    min-height: 350px;
   }
 }
+
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+.bio-theme-switcher:focus-visible,
+.bio-logo:focus-visible,
+.bio-back-button:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 4px;
+}
+
 
 /* =========================================================
    REDUCED MOTION
    ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
-  .seasons-page,
-  .seasons-theme-switcher,
-  .seasons-back,
-  .seasons-home-button {
+  .biography-page *,
+  .biography-page *::before,
+  .biography-page *::after {
+    scroll-behavior: auto !important;
     transition: none !important;
+    animation: none !important;
   }
 }

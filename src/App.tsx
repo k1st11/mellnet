@@ -3,12 +3,13 @@ import {
   ArrowRight,
   Moon,
   Sun,
+  Monitor,
 } from 'lucide-react';
 import './App.css';
 import Biography from './biography';
 import Seasons from './seasons';
 
-type Theme = 'light' | 'dark';
+export type Theme = 'light' | 'dark' | 'retro';
 
 type ServiceCard = {
   id: string;
@@ -78,7 +79,11 @@ const services: ServiceCard[] = [
 function getInitialTheme(): Theme {
   const saved = localStorage.getItem(THEME_KEY);
 
-  if (saved === 'light' || saved === 'dark') {
+  if (
+    saved === 'light' ||
+    saved === 'dark' ||
+    saved === 'retro'
+  ) {
     return saved;
   }
 
@@ -96,6 +101,57 @@ function navigate(path: string) {
     top: 0,
     behavior: 'smooth',
   });
+}
+
+function getNextTheme(theme: Theme): Theme {
+  if (theme === 'light') {
+    return 'dark';
+  }
+
+  if (theme === 'dark') {
+    return 'retro';
+  }
+
+  return 'light';
+}
+
+function getThemeName(theme: Theme): string {
+  if (theme === 'light') {
+    return 'LIGHT';
+  }
+
+  if (theme === 'dark') {
+    return 'DARK';
+  }
+
+  return 'RETRO';
+}
+
+function getThemeIcon(theme: Theme) {
+  if (theme === 'light') {
+    return (
+      <Moon
+        size={16}
+        strokeWidth={2}
+      />
+    );
+  }
+
+  if (theme === 'dark') {
+    return (
+      <Monitor
+        size={16}
+        strokeWidth={2}
+      />
+    );
+  }
+
+  return (
+    <Sun
+      size={16}
+      strokeWidth={2}
+    />
+  );
 }
 
 function App() {
@@ -132,7 +188,10 @@ function App() {
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
-    localStorage.setItem(THEME_KEY, theme);
+    localStorage.setItem(
+      THEME_KEY,
+      theme
+    );
   }, [theme]);
 
   if (currentPath === '/biography') {
@@ -153,6 +212,8 @@ function App() {
     );
   }
 
+  const nextTheme = getNextTheme(theme);
+
   return (
     <div
       className={`app app-${theme}`}
@@ -160,31 +221,17 @@ function App() {
       <button
         className="theme-switcher"
         type="button"
-        aria-label={
-          theme === 'light'
-            ? 'Включить тёмную тему'
-            : 'Включить светлую тему'
-        }
-        onClick={() =>
-          setTheme(
-            theme === 'light'
-              ? 'dark'
-              : 'light'
-          )
-        }
+        aria-label={`Переключить тему на ${getThemeName(nextTheme)}`}
+        onClick={() => {
+          setTheme(nextTheme);
+        }}
       >
         <span className="theme-switcher-icon">
-          {theme === 'light' ? (
-            <Moon size={16} strokeWidth={2} />
-          ) : (
-            <Sun size={16} strokeWidth={2} />
-          )}
+          {getThemeIcon(theme)}
         </span>
 
         <span className="theme-switcher-text">
-          {theme === 'light'
-            ? 'DARK'
-            : 'LIGHT'}
+          {getThemeName(theme)}
         </span>
       </button>
 
