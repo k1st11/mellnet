@@ -155,6 +155,14 @@ function getThemeIcon(theme: Theme) {
   );
 }
 
+function isValidTheme(value: string | null): value is Theme {
+  return (
+    value === 'light' ||
+    value === 'dark' ||
+    value === 'retro'
+  );
+}
+
 function App() {
   const [currentPath, setCurrentPath] = useState(
     window.location.pathname
@@ -164,6 +172,9 @@ function App() {
     getInitialTheme
   );
 
+  /*
+   * Синхронизация маршрута.
+   */
   useEffect(() => {
     const handlePopState = () => {
       setCurrentPath(window.location.pathname);
@@ -187,14 +198,57 @@ function App() {
     };
   }, []);
 
+  /*
+   * Главный источник применения темы.
+   *
+   * Все страницы MellNet используют один и тот же
+   * localStorage key и один data-theme на <html>.
+   */
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
+
     localStorage.setItem(
       THEME_KEY,
       theme
     );
   }, [theme]);
 
+  /*
+   * Синхронизация темы между страницами.
+   *
+   * Radio / Seasons / Biography смогут сообщить App
+   * об изменении темы через это событие.
+   *
+   * Это важно, потому что обычное событие "storage"
+   * НЕ срабатывает в той же вкладке, где изменили localStorage.
+   */
+  useEffect(() => {
+    const handleThemeChange = () => {
+      const saved = localStorage.getItem(
+        THEME_KEY
+      );
+
+      if (isValidTheme(saved)) {
+        setTheme(saved);
+      }
+    };
+
+    window.addEventListener(
+      'mellnet-theme-change',
+      handleThemeChange
+    );
+
+    return () => {
+      window.removeEventListener(
+        'mellnet-theme-change',
+        handleThemeChange
+      );
+    };
+  }, []);
+
+  /*
+   * BIOGRAPHY
+   */
   if (currentPath === '/biography') {
     return (
       <Biography
@@ -204,6 +258,9 @@ function App() {
     );
   }
 
+  /*
+   * SEASONS
+   */
   if (currentPath === '/seasons') {
     return (
       <Seasons
@@ -213,10 +270,21 @@ function App() {
     );
   }
 
-  if (currentPath === '/radio') {
-  return <Radio />;
+  /*
+   * MELLFM
+   *
+   * Пока Radio получает управление темой самостоятельно.
+   * App уже подготовлен к синхронизации через
+   * "mellnet-theme-change".
+   */
+ if (currentPath === '/radio') {
+  return (
+    <Radio
+      theme={theme}
+      setTheme={setTheme}
+    />
+  );
 }
-
   const nextTheme = getNextTheme(theme);
 
   return (

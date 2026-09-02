@@ -1,7 +1,11 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import "./radio.css";
-
-type Theme = "light" | "dark" | "retro";
+import type { Theme } from "./App";
 
 type Track = {
   id: number;
@@ -9,6 +13,11 @@ type Track = {
   author: string;
   file: string;
   cover?: string;
+};
+
+type RadioProps = {
+  theme: Theme;
+  setTheme: React.Dispatch<React.SetStateAction<Theme>>;
 };
 
 const tracks: Track[] = [
@@ -32,18 +41,7 @@ const tracks: Track[] = [
   },
 ];
 
-const STORAGE_THEME = "mellnet-theme";
 const STORAGE_BURMALDA = "mellfm-burmalda";
-
-function getSavedTheme(): Theme {
-  const saved = localStorage.getItem(STORAGE_THEME);
-
-  if (saved === "dark" || saved === "retro" || saved === "light") {
-    return saved;
-  }
-
-  return "light";
-}
 
 function formatTime(seconds: number) {
   if (!Number.isFinite(seconds)) {
@@ -53,17 +51,18 @@ function formatTime(seconds: number) {
   const minutes = Math.floor(seconds / 60);
   const secs = Math.floor(seconds % 60);
 
-  return `${String(minutes).padStart(2, "0")}:${String(secs).padStart(
-    2,
-    "0",
-  )}`;
+  return `${String(minutes).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
 }
 
-export default function Radio() {
+export default function Radio({
+  theme,
+  setTheme,
+}: RadioProps) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  const [theme, setTheme] = useState<Theme>(getSavedTheme);
-  const [currentTrackId, setCurrentTrackId] = useState(tracks[0]?.id ?? 0);
+  const [currentTrackId, setCurrentTrackId] = useState(
+    tracks[0]?.id ?? 0,
+  );
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLive, setIsLive] = useState(false);
@@ -75,7 +74,9 @@ export default function Radio() {
 
   const [burmalda, setBurmalda] = useState<number[]>(() => {
     try {
-      const saved = localStorage.getItem(STORAGE_BURMALDA);
+      const saved = localStorage.getItem(
+        STORAGE_BURMALDA,
+      );
 
       if (!saved) {
         return [];
@@ -96,23 +97,34 @@ export default function Radio() {
   });
 
   const currentTrack =
-    tracks.find((track) => track.id === currentTrackId) ?? tracks[0];
+    tracks.find(
+      (track) => track.id === currentTrackId,
+    ) ?? tracks[0];
 
   const burmaldaTracks = useMemo(() => {
     return burmalda
-      .map((id) => tracks.find((track) => track.id === id))
+      .map((id) =>
+        tracks.find((track) => track.id === id),
+      )
       .filter(Boolean) as Track[];
   }, [burmalda]);
 
+  /*
+   * Сохраняем только пользовательскую бурмалду.
+   *
+   * Тема здесь больше НЕ управляется.
+   * Её источник — App.tsx.
+   */
   useEffect(() => {
-    document.documentElement.dataset.theme = theme;
-    localStorage.setItem(STORAGE_THEME, theme);
-  }, [theme]);
-
-  useEffect(() => {
-    localStorage.setItem(STORAGE_BURMALDA, JSON.stringify(burmalda));
+    localStorage.setItem(
+      STORAGE_BURMALDA,
+      JSON.stringify(burmalda),
+    );
   }, [burmalda]);
 
+  /*
+   * Громкость.
+   */
   useEffect(() => {
     const audio = audioRef.current;
 
@@ -123,6 +135,9 @@ export default function Radio() {
     audio.volume = volume;
   }, [volume]);
 
+  /*
+   * При смене трека останавливаем старый.
+   */
   useEffect(() => {
     const audio = audioRef.current;
 
@@ -131,12 +146,15 @@ export default function Radio() {
     }
 
     audio.pause();
+
     setIsPlaying(false);
     setCurrentTime(0);
     setDuration(0);
   }, [currentTrackId]);
 
-  const playTrack = async (trackId: number) => {
+  const playTrack = async (
+    trackId: number,
+  ) => {
     if (isLive) {
       setIsLive(false);
     }
@@ -207,20 +225,30 @@ export default function Radio() {
   };
 
   const nextTrack = () => {
-    const source = burmaldaTracks.length > 0 ? burmaldaTracks : tracks;
+    const source =
+      burmaldaTracks.length > 0
+        ? burmaldaTracks
+        : tracks;
 
     if (source.length === 0) {
       return;
     }
 
-    const currentIndex = source.findIndex(
-      (track) => track.id === currentTrackId,
-    );
+    const currentIndex =
+      source.findIndex(
+        (track) =>
+          track.id === currentTrackId,
+      );
 
     const nextIndex =
-      currentIndex === -1 ? 0 : (currentIndex + 1) % source.length;
+      currentIndex === -1
+        ? 0
+        : (currentIndex + 1) %
+          source.length;
 
-    setCurrentTrackId(source[nextIndex].id);
+    setCurrentTrackId(
+      source[nextIndex].id,
+    );
 
     setTimeout(async () => {
       const audio = audioRef.current;
@@ -239,20 +267,29 @@ export default function Radio() {
   };
 
   const previousTrack = () => {
-    const source = burmaldaTracks.length > 0 ? burmaldaTracks : tracks;
+    const source =
+      burmaldaTracks.length > 0
+        ? burmaldaTracks
+        : tracks;
 
     if (source.length === 0) {
       return;
     }
 
-    const currentIndex = source.findIndex(
-      (track) => track.id === currentTrackId,
-    );
+    const currentIndex =
+      source.findIndex(
+        (track) =>
+          track.id === currentTrackId,
+      );
 
     const previousIndex =
-      currentIndex <= 0 ? source.length - 1 : currentIndex - 1;
+      currentIndex <= 0
+        ? source.length - 1
+        : currentIndex - 1;
 
-    setCurrentTrackId(source[previousIndex].id);
+    setCurrentTrackId(
+      source[previousIndex].id,
+    );
 
     setTimeout(async () => {
       const audio = audioRef.current;
@@ -270,7 +307,9 @@ export default function Radio() {
     }, 50);
   };
 
-  const handleSeek = (value: number) => {
+  const handleSeek = (
+    value: number,
+  ) => {
     const audio = audioRef.current;
 
     if (!audio) {
@@ -281,10 +320,14 @@ export default function Radio() {
     setCurrentTime(value);
   };
 
-  const toggleBurmalda = (trackId: number) => {
+  const toggleBurmalda = (
+    trackId: number,
+  ) => {
     setBurmalda((previous) => {
       if (previous.includes(trackId)) {
-        return previous.filter((id) => id !== trackId);
+        return previous.filter(
+          (id) => id !== trackId,
+        );
       }
 
       return [...previous, trackId];
@@ -296,14 +339,17 @@ export default function Radio() {
       return;
     }
 
-    const firstTrack = burmaldaTracks[0];
+    const firstTrack =
+      burmaldaTracks[0];
 
     if (!firstTrack) {
       return;
     }
 
     setIsLive(false);
-    setCurrentTrackId(firstTrack.id);
+    setCurrentTrackId(
+      firstTrack.id,
+    );
 
     setTimeout(async () => {
       const audio = audioRef.current;
@@ -331,8 +377,41 @@ export default function Radio() {
     setIsPlaying(false);
     setCurrentTime(0);
 
-    setIsLive((previous) => !previous);
+    setIsLive(
+      (previous) => !previous,
+    );
   };
+
+  const goHome = () => {
+    window.history.pushState(
+      {},
+      "",
+      "/",
+    );
+
+    window.dispatchEvent(
+      new PopStateEvent("popstate"),
+    );
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  const nextTheme =
+    theme === "light"
+      ? "dark"
+      : theme === "dark"
+        ? "retro"
+        : "light";
+
+  const themeName =
+    theme === "light"
+      ? "LIGHT"
+      : theme === "dark"
+        ? "DARK"
+        : "RETRO";
 
   return (
     <div className="radio-page">
@@ -341,59 +420,69 @@ export default function Radio() {
         src={currentTrack?.file}
         preload="metadata"
         onTimeUpdate={(event) => {
-          setCurrentTime(event.currentTarget.currentTime);
+          setCurrentTime(
+            event.currentTarget.currentTime,
+          );
         }}
         onLoadedMetadata={(event) => {
-          setDuration(event.currentTarget.duration);
+          setDuration(
+            event.currentTarget.duration,
+          );
         }}
         onEnded={nextTrack}
-        onPlay={() => setIsPlaying(true)}
-        onPause={() => setIsPlaying(false)}
+        onPlay={() =>
+          setIsPlaying(true)
+        }
+        onPause={() =>
+          setIsPlaying(false)
+        }
       />
 
       <header className="radio-header">
-       <button
-  className="radio-back-button"
-  onClick={() => {
-    window.history.pushState({}, '', '/');
+        <button
+          className="radio-back-button"
+          type="button"
+          onClick={goHome}
+        >
+          ← MELLNET
+        </button>
 
-    window.dispatchEvent(
-      new PopStateEvent('popstate')
-    );
-  }}
->
-  ← MELLNET
-</button>
         <div className="radio-brand">
-          <span className="radio-brand-small">MELLNET</span>
-          <strong>MеллFM</strong>
+          <span className="radio-brand-small">
+            MELLNET
+          </span>
+
+          <strong>
+            МеллFM
+          </strong>
         </div>
 
-        <div className="radio-theme-switcher">
-          <button
-            className={theme === "light" ? "active" : ""}
-            onClick={() => setTheme("light")}
-            title="Светлая тема"
-          >
-            ☀
-          </button>
+        <button
+          className="radio-theme-switcher"
+          type="button"
+          title={`Переключить тему: ${nextTheme}`}
+          onClick={() => {
+            setTheme(nextTheme);
 
-          <button
-            className={theme === "dark" ? "active" : ""}
-            onClick={() => setTheme("dark")}
-            title="Тёмная тема"
-          >
-            ◐
-          </button>
+            window.dispatchEvent(
+              new Event(
+                "mellnet-theme-change",
+              ),
+            );
+          }}
+        >
+          <span>
+            {theme === "light"
+              ? "☀"
+              : theme === "dark"
+                ? "◐"
+                : "90s"}
+          </span>
 
-          <button
-            className={theme === "retro" ? "active" : ""}
-            onClick={() => setTheme("retro")}
-            title="Ретро"
-          >
-            90s
-          </button>
-        </div>
+          <strong>
+            {themeName}
+          </strong>
+        </button>
       </header>
 
       <main className="radio-content">
@@ -402,14 +491,13 @@ export default function Radio() {
             <div className="vinyl-area">
               <div
                 className={`vinyl-player ${
-                  isPlaying || isLive ? "is-spinning" : ""
+                  isPlaying || isLive
+                    ? "is-spinning"
+                    : ""
                 }`}
               >
                 <div className="vinyl-disc">
                   <div className="vinyl-grooves" />
-                  <div className="vinyl-label">
-                    <span>M</span>
-                  </div>
                   <div className="vinyl-hole" />
                 </div>
               </div>
@@ -425,14 +513,17 @@ export default function Radio() {
                     LIVE
                   </span>
                 ) : (
-                  <span>LOCAL PLAYER</span>
+                  <span>
+                    LOCAL PLAYER
+                  </span>
                 )}
               </div>
 
               <h1>
                 {isLive
                   ? "МеллFM — прямой эфир"
-                  : currentTrack?.title ?? "МеллFM"}
+                  : currentTrack?.title ??
+                    "МеллFM"}
               </h1>
 
               <p>
@@ -453,20 +544,37 @@ export default function Radio() {
                       step="0.1"
                       value={currentTime}
                       onChange={(event) =>
-                        handleSeek(Number(event.target.value))
+                        handleSeek(
+                          Number(
+                            event.target
+                              .value,
+                          ),
+                        )
                       }
                     />
 
                     <div className="progress-times">
-                      <span>{formatTime(currentTime)}</span>
-                      <span>{formatTime(duration)}</span>
+                      <span>
+                        {formatTime(
+                          currentTime,
+                        )}
+                      </span>
+
+                      <span>
+                        {formatTime(
+                          duration,
+                        )}
+                      </span>
                     </div>
                   </div>
 
                   <div className="player-controls">
                     <button
                       className="control-button"
-                      onClick={previousTrack}
+                      type="button"
+                      onClick={
+                        previousTrack
+                      }
                       title="Предыдущий трек"
                     >
                       ‹‹
@@ -474,14 +582,24 @@ export default function Radio() {
 
                     <button
                       className="play-button"
-                      onClick={togglePlay}
-                      title={isPlaying ? "Пауза" : "Воспроизвести"}
+                      type="button"
+                      onClick={
+                        togglePlay
+                      }
+                      title={
+                        isPlaying
+                          ? "Пауза"
+                          : "Воспроизвести"
+                      }
                     >
-                      {isPlaying ? "Ⅱ" : "▶"}
+                      {isPlaying
+                        ? "Ⅱ"
+                        : "▶"}
                     </button>
 
                     <button
                       className="control-button"
+                      type="button"
                       onClick={nextTrack}
                       title="Следующий трек"
                     >
@@ -490,7 +608,9 @@ export default function Radio() {
                   </div>
 
                   <div className="volume-control">
-                    <span>VOL</span>
+                    <span>
+                      VOL
+                    </span>
 
                     <input
                       type="range"
@@ -498,12 +618,24 @@ export default function Radio() {
                       max="1"
                       step="0.01"
                       value={volume}
-                      onChange={(event) =>
-                        setVolume(Number(event.target.value))
+                      onChange={(
+                        event,
+                      ) =>
+                        setVolume(
+                          Number(
+                            event.target
+                              .value,
+                          ),
+                        )
                       }
                     />
 
-                    <span>{Math.round(volume * 100)}%</span>
+                    <span>
+                      {Math.round(
+                        volume * 100,
+                      )}
+                      %
+                    </span>
                   </div>
                 </>
               )}
@@ -512,17 +644,35 @@ export default function Radio() {
 
           <div className="radio-live-area">
             <div className="live-copy">
-              <span>24 / 7</span>
-              <strong>МеллFM LIVE</strong>
-              <p>Мэшапы, мемы и всё, что сейчас звучит в МеллНете.</p>
+              <span>
+                24 / 7
+              </span>
+
+              <strong>
+                МеллFM LIVE
+              </strong>
+
+              <p>
+                Мэшапы, мемы и всё,
+                что сейчас звучит
+                в МеллНете.
+              </p>
             </div>
 
             <button
-              className={`live-button ${isLive ? "active" : ""}`}
+              className={`live-button ${
+                isLive
+                  ? "active"
+                  : ""
+              }`}
+              type="button"
               onClick={startLive}
             >
               <span className="live-dot" />
-              {isLive ? "LIVE ON" : "LIVE"}
+
+              {isLive
+                ? "LIVE ON"
+                : "LIVE"}
             </button>
           </div>
         </section>
@@ -530,8 +680,13 @@ export default function Radio() {
         <section className="radio-library">
           <div className="section-heading">
             <div>
-              <span>LIBRARY</span>
-              <h2>Мэшапы</h2>
+              <span>
+                LIBRARY
+              </span>
+
+              <h2>
+                Мэшапы
+              </h2>
             </div>
 
             <span className="track-count">
@@ -540,93 +695,184 @@ export default function Radio() {
           </div>
 
           <div className="track-list">
-            {tracks.map((track, index) => {
-              const isCurrent = track.id === currentTrackId;
-              const isInBurmalda = burmalda.includes(track.id);
+            {tracks.map(
+              (
+                track,
+                index,
+              ) => {
+                const isCurrent =
+                  track.id ===
+                  currentTrackId;
 
-              return (
-                <div
-                  className={`track-row ${
-                    isCurrent && !isLive ? "current" : ""
-                  }`}
-                  key={track.id}
-                >
-                  <span className="track-number">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
+                const isInBurmalda =
+                  burmalda.includes(
+                    track.id,
+                  );
 
-                  <button
-                    className="track-play"
-                    onClick={() => playTrack(track.id)}
-                  >
-                    {isCurrent && isPlaying ? "Ⅱ" : "▶"}
-                  </button>
-
-                  <div className="track-meta">
-                    <strong>{track.title}</strong>
-                    <span>{track.author}</span>
-                  </div>
-
-                  <button
-                    className={`burmalda-add ${
-                      isInBurmalda ? "added" : ""
+                return (
+                  <div
+                    className={`track-row ${
+                      isCurrent &&
+                      !isLive
+                        ? "current"
+                        : ""
                     }`}
-                    onClick={() => toggleBurmalda(track.id)}
-                    title={
-                      isInBurmalda
-                        ? "Убрать из Моей бурмалды"
-                        : "Добавить в Мою бурмалду"
-                    }
+                    key={track.id}
                   >
-                    {isInBurmalda ? "✓" : "+"}
-                  </button>
-                </div>
-              );
-            })}
+                    <span className="track-number">
+                      {String(
+                        index + 1,
+                      ).padStart(
+                        2,
+                        "0",
+                      )}
+                    </span>
+
+                    <button
+                      className="track-play"
+                      type="button"
+                      onClick={() =>
+                        playTrack(
+                          track.id,
+                        )
+                      }
+                    >
+                      {isCurrent &&
+                      isPlaying
+                        ? "Ⅱ"
+                        : "▶"}
+                    </button>
+
+                    <div className="track-meta">
+                      <strong>
+                        {
+                          track.title
+                        }
+                      </strong>
+
+                      <span>
+                        {
+                          track.author
+                        }
+                      </span>
+                    </div>
+
+                    <button
+                      className={`burmalda-add ${
+                        isInBurmalda
+                          ? "added"
+                          : ""
+                      }`}
+                      type="button"
+                      onClick={() =>
+                        toggleBurmalda(
+                          track.id,
+                        )
+                      }
+                      title={
+                        isInBurmalda
+                          ? "Убрать из Моей бурмалды"
+                          : "Добавить в Мою бурмалду"
+                      }
+                    >
+                      {isInBurmalda
+                        ? "✓"
+                        : "+"}
+                    </button>
+                  </div>
+                );
+              },
+            )}
           </div>
         </section>
 
         <section className="burmalda-card">
           <div className="burmalda-heading">
             <div>
-              <span>YOUR PERSONAL RADIO</span>
-              <h2>Моя бурмалда</h2>
+              <span>
+                YOUR PERSONAL RADIO
+              </span>
+
+              <h2>
+                Моя бурмалда
+              </h2>
             </div>
 
-            <span>{burmalda.length} треков</span>
+            <span>
+              {burmalda.length} треков
+            </span>
           </div>
 
           <p className="burmalda-description">
-            Собери собственную волну из любимых мэшапов МеллFM.
+            Собери собственную
+            волну из любимых
+            мэшапов МеллFM.
           </p>
 
-          {burmaldaTracks.length > 0 ? (
+          {burmaldaTracks.length >
+          0 ? (
             <div className="burmalda-list">
-              {burmaldaTracks.map((track, index) => (
-                <button
-                  className="burmalda-track"
-                  key={track.id}
-                  onClick={() => playTrack(track.id)}
-                >
-                  <span>{String(index + 1).padStart(2, "0")}</span>
+              {burmaldaTracks.map(
+                (
+                  track,
+                  index,
+                ) => (
+                  <button
+                    className="burmalda-track"
+                    type="button"
+                    key={track.id}
+                    onClick={() =>
+                      playTrack(
+                        track.id,
+                      )
+                    }
+                  >
+                    <span>
+                      {String(
+                        index + 1,
+                      ).padStart(
+                        2,
+                        "0",
+                      )}
+                    </span>
 
-                  <div>
-                    <strong>{track.title}</strong>
-                    <small>{track.author}</small>
-                  </div>
+                    <div>
+                      <strong>
+                        {
+                          track.title
+                        }
+                      </strong>
 
-                  <span>▶</span>
-                </button>
-              ))}
+                      <small>
+                        {
+                          track.author
+                        }
+                      </small>
+                    </div>
+
+                    <span>
+                      ▶
+                    </span>
+                  </button>
+                ),
+              )}
             </div>
           ) : (
             <div className="burmalda-empty">
-              <div className="empty-icon">+</div>
+              <div className="empty-icon">
+                +
+              </div>
 
               <div>
-                <strong>Бурмалда пока пустая</strong>
+                <strong>
+                  Бурмалда пока пустая
+                </strong>
+
                 <p>
-                  Добавляй мэшапы из библиотеки, чтобы собрать свою волну.
+                  Добавляй мэшапы
+                  из библиотеки,
+                  чтобы собрать
+                  свою волну.
                 </p>
               </div>
             </div>
@@ -634,17 +880,28 @@ export default function Radio() {
 
           <button
             className="burmalda-start"
-            disabled={burmalda.length === 0}
-            onClick={startBurmalda}
+            type="button"
+            disabled={
+              burmalda.length === 0
+            }
+            onClick={
+              startBurmalda
+            }
           >
-            ▶ Запустить бурмалду
+            ▶ Запустить
+            бурмалду
           </button>
         </section>
       </main>
 
       <footer className="radio-footer">
-        <span>MELLNET / MELLFM</span>
-        <span>LOCAL RADIO SYSTEM</span>
+        <span>
+          MELLNET / MELLFM
+        </span>
+
+        <span>
+          LOCAL RADIO SYSTEM
+        </span>
       </footer>
     </div>
   );
