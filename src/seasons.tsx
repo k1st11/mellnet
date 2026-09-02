@@ -2,10 +2,10 @@ import {
   ArrowLeft,
   Moon,
   Sun,
+  Monitor,
 } from 'lucide-react';
+import type { Theme } from './App';
 import './seasons.css';
-
-type Theme = 'light' | 'dark';
 
 type SeasonsProps = {
   theme: Theme;
@@ -183,10 +183,63 @@ function goHome() {
   });
 }
 
+function getNextTheme(theme: Theme): Theme {
+  if (theme === 'light') {
+    return 'dark';
+  }
+
+  if (theme === 'dark') {
+    return 'retro';
+  }
+
+  return 'light';
+}
+
+function getThemeName(theme: Theme): string {
+  if (theme === 'light') {
+    return 'LIGHT';
+  }
+
+  if (theme === 'dark') {
+    return 'DARK';
+  }
+
+  return 'RETRO';
+}
+
+function getThemeIcon(theme: Theme) {
+  if (theme === 'light') {
+    return (
+      <Moon
+        size={16}
+        strokeWidth={2}
+      />
+    );
+  }
+
+  if (theme === 'dark') {
+    return (
+      <Monitor
+        size={16}
+        strokeWidth={2}
+      />
+    );
+  }
+
+  return (
+    <Sun
+      size={16}
+      strokeWidth={2}
+    />
+  );
+}
+
 function Seasons({
   theme,
   setTheme,
 }: SeasonsProps) {
+  const nextTheme = getNextTheme(theme);
+
   return (
     <main
       className={`seasons-page seasons-${theme}`}
@@ -194,32 +247,17 @@ function Seasons({
       <button
         className="seasons-theme-switcher"
         type="button"
-        onClick={() =>
-          setTheme(
-            theme === 'light'
-              ? 'dark'
-              : 'light'
-          )
-        }
+        aria-label={`Переключить тему на ${getThemeName(nextTheme)}`}
+        onClick={() => {
+          setTheme(nextTheme);
+        }}
       >
         <span className="seasons-theme-icon">
-          {theme === 'light' ? (
-            <Moon
-              size={16}
-              strokeWidth={2}
-            />
-          ) : (
-            <Sun
-              size={16}
-              strokeWidth={2}
-            />
-          )}
+          {getThemeIcon(theme)}
         </span>
 
         <span>
-          {theme === 'light'
-            ? 'DARK'
-            : 'LIGHT'}
+          {getThemeName(theme)}
         </span>
       </button>
 
@@ -420,7 +458,9 @@ function Seasons({
       </section>
 
       <footer className="seasons-footer">
-        <strong>MELLNET</strong>
+        <strong>
+          MELLNET
+        </strong>
 
         <span>
           DIGITAL MEME ARCHIVE

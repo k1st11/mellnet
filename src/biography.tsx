@@ -1,10 +1,10 @@
 import {
   Moon,
   Sun,
+  Monitor,
 } from 'lucide-react';
+import type { Theme } from './App';
 import './biography.css';
-
-type Theme = 'light' | 'dark';
 
 type BiographyProps = {
   theme: Theme;
@@ -24,6 +24,7 @@ const photos = [
 
 function goHome() {
   window.history.pushState({}, '', '/');
+
   window.dispatchEvent(
     new PopStateEvent('popstate')
   );
@@ -34,10 +35,63 @@ function goHome() {
   });
 }
 
+function getNextTheme(theme: Theme): Theme {
+  if (theme === 'light') {
+    return 'dark';
+  }
+
+  if (theme === 'dark') {
+    return 'retro';
+  }
+
+  return 'light';
+}
+
+function getThemeName(theme: Theme): string {
+  if (theme === 'light') {
+    return 'LIGHT';
+  }
+
+  if (theme === 'dark') {
+    return 'DARK';
+  }
+
+  return 'RETRO';
+}
+
+function getThemeIcon(theme: Theme) {
+  if (theme === 'light') {
+    return (
+      <Moon
+        size={16}
+        strokeWidth={2}
+      />
+    );
+  }
+
+  if (theme === 'dark') {
+    return (
+      <Monitor
+        size={16}
+        strokeWidth={2}
+      />
+    );
+  }
+
+  return (
+    <Sun
+      size={16}
+      strokeWidth={2}
+    />
+  );
+}
+
 function Biography({
   theme,
   setTheme,
 }: BiographyProps) {
+  const nextTheme = getNextTheme(theme);
+
   return (
     <main
       className={`biography-page biography-${theme}`}
@@ -45,37 +99,17 @@ function Biography({
       <button
         className="bio-theme-switcher"
         type="button"
-        aria-label={
-          theme === 'light'
-            ? 'Включить тёмную тему'
-            : 'Включить светлую тему'
-        }
-        onClick={() =>
-          setTheme(
-            theme === 'light'
-              ? 'dark'
-              : 'light'
-          )
-        }
+        aria-label={`Переключить тему на ${getThemeName(nextTheme)}`}
+        onClick={() => {
+          setTheme(nextTheme);
+        }}
       >
         <span className="bio-theme-icon">
-          {theme === 'light' ? (
-            <Moon
-              size={16}
-              strokeWidth={2}
-            />
-          ) : (
-            <Sun
-              size={16}
-              strokeWidth={2}
-            />
-          )}
+          {getThemeIcon(theme)}
         </span>
 
         <span>
-          {theme === 'light'
-            ? 'DARK'
-            : 'LIGHT'}
+          {getThemeName(theme)}
         </span>
       </button>
 
@@ -140,6 +174,7 @@ function Biography({
               <span>
                 SCROLL TO EXPLORE
               </span>
+
               <i />
             </div>
           </div>
@@ -178,6 +213,7 @@ function Biography({
               <span>
                 FILE / MELLSTROY
               </span>
+
               <span>OPEN</span>
             </div>
 
@@ -206,6 +242,7 @@ function Biography({
             <div className="panel-meta">
               <div>
                 <span>TYPE</span>
+
                 <strong>
                   INTERNET CULTURE
                 </strong>
@@ -213,6 +250,7 @@ function Biography({
 
               <div>
                 <span>FORMAT</span>
+
                 <strong>
                   STREAM / MEDIA
                 </strong>
@@ -220,6 +258,7 @@ function Biography({
 
               <div>
                 <span>ARCHIVE</span>
+
                 <strong>
                   MELLNET
                 </strong>
@@ -246,6 +285,7 @@ function Biography({
 
             <div className="photo-overlay">
               <span>ARCHIVE 01</span>
+
               <strong>MELLSTROY</strong>
             </div>
           </div>
@@ -280,6 +320,7 @@ function Biography({
 
             <div className="photo-overlay">
               <span>ARCHIVE 04</span>
+
               <strong>
                 DIGITAL CULTURE
               </strong>
@@ -448,7 +489,9 @@ function Biography({
               Вернуться в MellNet
             </span>
 
-            <strong>→</strong>
+            <strong>
+              →
+            </strong>
           </button>
         </div>
       </section>
