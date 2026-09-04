@@ -109,12 +109,6 @@ export default function Radio({
       .filter(Boolean) as Track[];
   }, [burmalda]);
 
-  /*
-   * Сохраняем только пользовательскую бурмалду.
-   *
-   * Тема здесь больше НЕ управляется.
-   * Её источник — App.tsx.
-   */
   useEffect(() => {
     localStorage.setItem(
       STORAGE_BURMALDA,
@@ -122,9 +116,6 @@ export default function Radio({
     );
   }, [burmalda]);
 
-  /*
-   * Громкость.
-   */
   useEffect(() => {
     const audio = audioRef.current;
 
@@ -135,9 +126,6 @@ export default function Radio({
     audio.volume = volume;
   }, [volume]);
 
-  /*
-   * При смене трека останавливаем старый.
-   */
   useEffect(() => {
     const audio = audioRef.current;
 
@@ -347,6 +335,7 @@ export default function Radio({
     }
 
     setIsLive(false);
+
     setCurrentTrackId(
       firstTrack.id,
     );
@@ -458,20 +447,14 @@ export default function Radio({
         </div>
 
         <button
-          className="radio-theme-switcher"
+          className="theme-switcher"
           type="button"
           title={`Переключить тему: ${nextTheme}`}
           onClick={() => {
             setTheme(nextTheme);
-
-            window.dispatchEvent(
-              new Event(
-                "mellnet-theme-change",
-              ),
-            );
           }}
         >
-          <span>
+          <span className="theme-switcher-icon">
             {theme === "light"
               ? "☀"
               : theme === "dark"
@@ -479,9 +462,9 @@ export default function Radio({
                 : "90s"}
           </span>
 
-          <strong>
+          <span className="theme-switcher-text">
             {themeName}
-          </strong>
+          </span>
         </button>
       </header>
 
@@ -546,8 +529,7 @@ export default function Radio({
                       onChange={(event) =>
                         handleSeek(
                           Number(
-                            event.target
-                              .value,
+                            event.target.value,
                           ),
                         )
                       }
@@ -600,7 +582,9 @@ export default function Radio({
                     <button
                       className="control-button"
                       type="button"
-                      onClick={nextTrack}
+                      onClick={
+                        nextTrack
+                      }
                       title="Следующий трек"
                     >
                       ››
@@ -623,8 +607,7 @@ export default function Radio({
                       ) =>
                         setVolume(
                           Number(
-                            event.target
-                              .value,
+                            event.target.value,
                           ),
                         )
                       }
@@ -771,8 +754,8 @@ export default function Radio({
                       }
                       title={
                         isInBurmalda
-                          ? "Убрать из Моей бурмалды"
-                          : "Добавить в Мою бурмалду"
+                          ? "Убрать из Моей Бурмалду"
+                          : "Добавить в Мою Бурмалду"
                       }
                     >
                       {isInBurmalda
@@ -794,7 +777,7 @@ export default function Radio({
               </span>
 
               <h2>
-                Моя бурмалда
+                Моя Бурмалда
               </h2>
             </div>
 
@@ -889,7 +872,7 @@ export default function Radio({
             }
           >
             ▶ Запустить
-            бурмалду
+            Мою Бурмалду
           </button>
         </section>
       </main>
