@@ -198,6 +198,11 @@ const tracks: Track[] = [
 ];
 
 const STORAGE_BURMALDA = "mellfm-burmalda";
+const STORAGE_PLAYED = "mellfm-played";
+
+function pickRandom<T>(items: T[]) {
+  return items[Math.floor(Math.random() * items.length)];
+}
 
 function formatTime(seconds: number) {
   if (!Number.isFinite(seconds)) {
@@ -222,6 +227,10 @@ export default function Radio({
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLive, setIsLive] = useState(false);
+  const [mode, setMode] = useState<"local" | "live" | "burmalda">("local");
+  const [played, setPlayed] = useState<number[]>(() => {
+    try { return JSON.parse(localStorage.getItem(STORAGE_PLAYED) || "[]"); } catch { return []; }
+  });
 
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -266,6 +275,10 @@ export default function Radio({
   }, [burmalda]);
 
   useEffect(() => {
+    localStorage.setItem(STORAGE_PLAYED, JSON.stringify(played));
+  }, [played]);
+
+  useEffect(() => {
     localStorage.setItem(
       STORAGE_BURMALDA,
       JSON.stringify(burmalda),
@@ -299,6 +312,7 @@ export default function Radio({
   const playTrack = async (
     trackId: number,
   ) => {
+    setMode("local");
     if (isLive) {
       setIsLive(false);
     }
@@ -369,6 +383,21 @@ export default function Radio({
   };
 
   const nextTrack = () => {
+    const source = mode === "burmalda" && burmaldaTracks.length > 0 ? burmaldaTracks : tracks;
+    const recent = new Set([currentTrackId, ...played.slice(-9)]);
+    const candidates = source.filter((track) => !recent.has(track.id));
+    const next = pickRandom(candidates.length ? candidates : source.filter((track) => track.id !== currentTrackId));
+    if (!next) return;
+    setPlayed((items) => [...items.filter((id) => id !== next.id), next.id].slice(-30));
+    setCurrentTrackId(next.id);
+    setTimeout(async () => {
+      const audio = audioRef.current;
+      if (!audio) return;
+      try { await audio.play(); setIsPlaying(true); } catch { setIsPlaying(false); }
+    }, 50);
+    return;
+
+    /* legacy sequential queue */
     const source =
       burmaldaTracks.length > 0
         ? burmaldaTracks
@@ -479,6 +508,7 @@ export default function Radio({
   };
 
   const startBurmalda = async () => {
+    setMode("burmalda");
     if (burmalda.length === 0) {
       return;
     }
@@ -513,6 +543,7 @@ export default function Radio({
   };
 
   const startLive = () => {
+    setMode("live");
     const audio = audioRef.current;
 
     if (audio) {
